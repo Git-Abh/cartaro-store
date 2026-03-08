@@ -2,3 +2,48 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+/* ── MOBILE RESPONSIVE FIXES ── */
+@media (max-width: 768px) {
+  /* Fix full width layout */
+  body, #root, .App {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Fix sections padding */
+  section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Fix product grid - 1 column on mobile */
+  [style*="minmax(260px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*="minmax(230px"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Fix hero decorations */
+  [style*="width: 400"] {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  [style*="width: 300"] {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  /* Fix footer columns */
+  [style*="display: flex"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* Fix navbar overflow */
+  nav {
+    overflow-x: auto !important;
+  }
+}
