@@ -245,3 +245,17 @@
     top: 70px !important;
   }
 }
+
+/* ── CART PAGE MOBILE FIX ── */
+@media (max-width: 768px) {
+  /* Stack cart columns vertically */
+  [style*="gridTemplateColumns: \"1fr 360px\""] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Fix quantity buttons - horizontal */
+  [style*="flexDirection: \"column\""][style*="alignItems: \"center\""] {
+    flex-direction: row !important;
+    gap: 12px !important;
+  }
+}
