@@ -47,3 +47,49 @@
     overflow-x: auto !important;
   }
 }
+
+/* ── NAVBAR MOBILE FIX ── */
+@media (max-width: 768px) {
+  /* Hide nav links on mobile, show only logo + icons */
+  nav > div > div:nth-child(2) {
+    display: none !important;
+  }
+
+  /* Make navbar height smaller */
+  nav > div {
+    height: 56px !important;
+  }
+
+  /* Fix search dropdown width */
+  nav input {
+    width: 100% !important;
+  }
+
+  /* Fix search results panel */
+  nav > div > div:nth-child(3) > div > div > div[style*="width: 340"] {
+    width: 280px !important;
+    right: -60px !important;
+  }
+
+  /* Product grid - 1 column on small phones */
+  @media (max-width: 480px) {
+    [style*="minmax(260px"] {
+      grid-template-columns: 1fr !important;
+    }
+    [style*="minmax(230px"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* Stats - 2x2 grid */
+  [style*="gap: 40"][style*="flexWrap"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Fix buttons in hero */
+  [style*="Shop Now"], [style*="About Cartaro"] {
+    width: 100% !important;
+  }
+}
