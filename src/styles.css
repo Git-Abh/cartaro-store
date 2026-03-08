@@ -206,3 +206,29 @@
     margin-top: 32px !important;
   }
 }
+
+/* ── FINAL MOBILE FIXES ── */
+@media (max-width: 768px) {
+  /* Fix navbar - keep logo and text on one line */
+  nav > div > div:first-child {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+  }
+
+  /* Cart page - stack columns vertically */
+  [style*="maxWidth: 1200"][style*="padding: \"40px 24px\""] > div {
+    flex-direction: column !important;
+  }
+
+  /* Cart order summary - full width */
+  [style*="maxWidth: 300"] {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Cart items - full width */
+  [style*="flex: 1"][style*="minWidth: 220"] {
+    min-width: 100% !important;
+  }
+}
