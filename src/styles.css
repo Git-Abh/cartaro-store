@@ -135,3 +135,32 @@
     grid-template-columns: 1fr 1fr !important;
   }
 }
+
+/* ── FOOTER & ICON FIXES ── */
+@media (max-width: 768px) {
+  /* Fix social icons - show in a row */
+  footer [style*="display: flex"][style*="gap"] {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* Fix stats - force 2x2 grid */
+  [style*="justifyContent: \"center\""][style*="flexWrap: \"wrap\""] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    padding: 0 16px !important;
+  }
+
+  /* Fix navbar icons row */
+  nav [style*="display: flex"][style*="marginLeft"] {
+    flex-direction: row !important;
+    gap: 4px !important;
+  }
+
+  /* Fix FAQ plus icon position */
+  [style*="Are there any"] {
+    flex-direction: row !important;
+  }
+}
