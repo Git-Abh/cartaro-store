@@ -3153,8 +3153,14 @@ const ContactPage = () => {
 
 export default function App() {
   const [page, setPage] = useState("home");
-  const [cart, setCart] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("cartaro-cart")) || []; }
+    catch { return []; }
+  });
+  const [wishlist, setWishlist] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("cartaro-wishlist")) || []; }
+    catch { return []; }
+  });
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [coupon, setCoupon] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -3182,6 +3188,8 @@ export default function App() {
     showToast(`✅ ${product.name} added to cart!`);
   };
 
+  useEffect(() => { localStorage.setItem("cartaro-cart", JSON.stringify(cart)); }, [cart]);
+  useEffect(() => { localStorage.setItem("cartaro-wishlist", JSON.stringify(wishlist)); }, [wishlist]);
   const toggleWishlist = (id) => {
     setWishlist((w) =>
       w.includes(id) ? w.filter((x) => x !== id) : [...w, id]
