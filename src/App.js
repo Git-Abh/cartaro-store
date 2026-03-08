@@ -1922,7 +1922,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 360px",
+          gridTemplateColumns: window.innerWidth < 768 ? "1fr" : "1fr 360px",
           gap: 32,
           alignItems: "start",
         }}
