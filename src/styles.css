@@ -232,3 +232,16 @@
     min-width: 100% !important;
   }
 }
+
+/* ── SEARCH BAR MOBILE FIX ── */
+@media (max-width: 768px) {
+  /* Make search dropdown full width and properly positioned */
+  [style*="width: 340"] {
+    width: calc(100vw - 24px) !important;
+    right: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    position: fixed !important;
+    top: 70px !important;
+  }
+}
