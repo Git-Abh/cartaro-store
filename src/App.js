@@ -3568,14 +3568,13 @@ export default function App() {
             setPage={setPage}
           />
         )}
-        <WishlistPage
+        {page === "wishlist" && (<WishlistPage
             wishlist={wishlist}
             products={PRODUCTS}
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
             setPage={setPage}
-          />
-        )}
+          />)}
         {page === "cart" && (
           <CartPage
             cart={cart}
