@@ -93,3 +93,45 @@
     width: 100% !important;
   }
 }
+
+/* ── ECOMMERCE STANDARD MOBILE SIZES ── */
+@media (max-width: 768px) {
+  /* Navbar - fix logo cutoff */
+  nav > div {
+    padding: 0 12px !important;
+    height: 56px !important;
+  }
+
+  /* Product cards - compact like Flipkart */
+  /* 2 column grid for products */
+  [style*="minmax(260px"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Footer - stack columns vertically */
+  footer [style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  /* Smaller font sizes - standard mobile */
+  h1, [style*="fontSize: 72"], [style*="fontSize: 64"] {
+    font-size: 32px !important;
+  }
+
+  h2, [style*="fontSize: 40"], [style*="fontSize: 36"] {
+    font-size: 24px !important;
+  }
+
+  /* Section padding - tighter like Amazon mobile */
+  section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Trust badges - 2 per row */
+  [style*="SSL Secured"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
