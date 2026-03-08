@@ -711,7 +711,7 @@ const HomePage = ({
               ["50,000+", "Happy Customers"],
               ["4.8★", "Average Rating"],
               ["2-4 Days", "Pan-India Delivery"],
-              ["10 Days", "Easy Returns"],
+              ["7 Days", "Easy Returns"],
             ].map(([val, lab]) => (
               <div key={lab} style={{ textAlign: "center" }}>
                 <div
@@ -790,7 +790,7 @@ const HomePage = ({
               },
               {
                 icon: "↩️",
-                title: "10-Day Easy Returns",
+                title: "7-Day Easy Returns",
                 desc: "Not happy? Raise a return in seconds. Free pickup & instant refund. No questions asked.",
               },
               {
