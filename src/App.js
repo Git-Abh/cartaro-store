@@ -1812,6 +1812,27 @@ const ProductPage = ({
   );
 };
 
+const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) => {
+  const wishedProducts = products.filter(p => wishlist.includes(p.id));
+  if (wishedProducts.length === 0) return (
+    <div style={{ textAlign: "center", padding: "100px 24px" }}>
+      <div style={{ fontSize: 72, marginBottom: 24 }}>🤍</div>
+      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 28, marginBottom: 12 }}>Your wishlist is empty</h2>
+      <p style={{ color: "#64748B", marginBottom: 32 }}>Save items you love and find them here.</p>
+      <button onClick={() => setPage("shop")} style={{ background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 12, padding: "14px 32px", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>Browse Products</button>
+    </div>
+  );
+  return (
+    <div style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px" }}>
+      <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8 }}>My Wishlist</h1>
+      <p style={{ color: "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 24 }}>
+        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} onView={() => setPage("shop")} />)}
+      </div>
+    </div>
+  );
+};
+
 const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
   const [couponInput, setCouponInput] = useState("");
   const [couponMsg, setCouponMsg] = useState(null);
@@ -3425,7 +3446,7 @@ export default function App() {
             </div>
             {/* Wishlist */}
             <button
-              onClick={() => setPage("shop")}
+              onClick={() => setPage("wishlist")}
               style={{
                 background: "none",
                 border: "none",
@@ -3544,6 +3565,14 @@ export default function App() {
             onWishlist={toggleWishlist}
             wishlist={wishlist}
             products={PRODUCTS}
+            setPage={setPage}
+          />
+        )}
+        <WishlistPage
+            wishlist={wishlist}
+            products={PRODUCTS}
+            onAddToCart={addToCart}
+            onWishlist={toggleWishlist}
             setPage={setPage}
           />
         )}
