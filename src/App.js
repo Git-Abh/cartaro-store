@@ -1,4 +1,6 @@
 import "./styles.css";
+import { db } from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect, useRef } from "react";
 
@@ -2219,13 +2221,29 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
     return e;
   };
 
-  const placeOrder = () => {
+  const placeOrder = async () => {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
       return;
     }
     const id = "CRT" + Date.now().toString().slice(-8);
+    try {
+      await addDoc(collection(db, "orders"), {
+        orderId: id,
+        customer: form,
+        items: cart,
+        subtotal,
+        discount: discountAmt,
+        shipping,
+        total,
+        status: "pending",
+        paymentMethod: form.payment,
+        createdAt: new Date()
+      });
+    } catch (err) {
+      console.error("Order save failed:", err);
+    }
     setOrderId(id);
     setPlaced(true);
     setCart([]);
