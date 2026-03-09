@@ -1,4 +1,5 @@
 import "./styles.css";
+import AdminPage from "./AdminPage";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
@@ -3614,6 +3615,7 @@ export default function App() {
         {page === "tracking" && <TrackingPage />}
         {page === "about" && <AboutPage />}
         {page === "contact" && <ContactPage />}
+        {page === "admin" && <AdminPage />}
       </main>
 
       {/* FOOTER */}
