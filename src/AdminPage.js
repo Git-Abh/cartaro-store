@@ -76,7 +76,8 @@ const AdminPage = () => {
           ["Total Orders", orders.length, "#3B82F6"],
           ["Pending", orders.filter(o => o.status === "pending").length, "#F59E0B"],
           ["Delivered", orders.filter(o => o.status === "delivered").length, "#10B981"],
-          ["Revenue", "₹" + orders.reduce((s, o) => s + (o.total || 0), 0).toLocaleString(), "#8B5CF6"],
+          ["Cancelled", orders.filter(o => o.status === "cancelled").length, "#EF4444"],
+          ["Revenue", "₹" + orders.filter(o => o.status !== "cancelled").reduce((s, o) => s + (o.total || 0), 0).toLocaleString(), "#8B5CF6"],
         ].map(([label, value, color]) => (
           <div key={label} style={{ background: "#fff", borderRadius: 12, padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)", borderTop: `4px solid ${color}` }}>
             <div style={{ fontSize: 24, fontWeight: 800, color }}>{value}</div>
