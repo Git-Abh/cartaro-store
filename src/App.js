@@ -3193,6 +3193,12 @@ const ContactPage = () => {
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [adminClicks, setAdminClicks] = useState(0);
+  const handleAdminClick = () => {
+    const newCount = adminClicks + 1;
+    setAdminClicks(newCount);
+    if (newCount >= 5) { setPage("admin"); setAdminClicks(0); }
+  };
   const [cart, setCart] = useState(() => {
     try { return JSON.parse(localStorage.getItem("cartaro-cart")) || []; }
     catch { return []; }
@@ -3766,7 +3772,7 @@ export default function App() {
             }}
           >
             <div style={{ color: "#475569", fontSize: 13 }}>
-              © 2026 Cartaro. All rights reserved. Made with ❤️ in India.
+              <span onClick={handleAdminClick} style={{ cursor: "default" }}>© 2026 Cartaro. All rights reserved. Made with ❤️ in India.</span>
             </div>
             <div style={{ display: "flex", gap: 12 }}>
               {["💳", "📱", "🏦", "💵"].map((icon, i) => (
