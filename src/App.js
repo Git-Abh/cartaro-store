@@ -2256,7 +2256,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
       address: form.address,
       city: form.city,
       pincode: form.pincode
-    }, "gOBtPAkj0_9RCLVm5").catch(err => console.error("Email failed:", err));
+    }, "gOBtPAkj0_9RCLVm5").then(() => console.log("Email sent successfully!")).catch(err => console.error("Email failed:", JSON.stringify(err)));
     setOrderId(id);
     setPlaced(true);
     setCart([]);
