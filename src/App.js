@@ -1,6 +1,7 @@
 import "./styles.css";
 import AdminPage from "./AdminPage";
 import { db } from "./firebase";
+import emailjs from "@emailjs/browser";
 import { collection, addDoc } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect, useRef } from "react";
@@ -2245,6 +2246,17 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
     } catch (err) {
       console.error("Order save failed:", err);
     }
+    emailjs.send("service_er39cen", "template_l9ma7vp", {
+      customer_email: form.email,
+      customer_name: form.name,
+      order_id: id,
+      items: cart.map(i => `${i.name} x${i.qty}`).join(", "),
+      total: "₹" + total.toLocaleString(),
+      payment_method: form.payment.toUpperCase(),
+      address: form.address,
+      city: form.city,
+      pincode: form.pincode
+    }, "gOBtPAkj0_9RCLVm5").catch(err => console.error("Email failed:", err));
     setOrderId(id);
     setPlaced(true);
     setCart([]);
