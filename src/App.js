@@ -2246,7 +2246,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
     } catch (err) {
       console.error("Order save failed:", err);
     }
-    emailjs.send("service_er39cen", "template_l9ma7vp", {
+    emailjs.send("service_er39cen", "template_tb6qfi4", {
       customer_email: form.email,
       customer_name: form.name,
       order_id: id,
