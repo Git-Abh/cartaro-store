@@ -3197,7 +3197,7 @@ export default function App() {
   const handleAdminClick = () => {
     const newCount = adminClicks + 1;
     setAdminClicks(newCount);
-    if (newCount >= 5) { setPage("admin"); setAdminClicks(0); }
+    if (newCount >= 3) { setPage("admin"); setAdminClicks(0); } else { console.log("Admin clicks:", newCount); }
   };
   const [cart, setCart] = useState(() => {
     try { return JSON.parse(localStorage.getItem("cartaro-cart")) || []; }
