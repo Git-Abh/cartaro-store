@@ -3491,7 +3491,6 @@ export default function App() {
                     </div>
                   </div>
               )}
-              )}
             </div>
             {/* Wishlist */}
             <button
