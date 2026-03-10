@@ -3682,13 +3682,21 @@ export default function App() {
 
       {/* FOOTER */}
       <footer
+        ref={el => {
+          if (!el) return;
+          const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("footer-visible"); obs.disconnect(); } }, { threshold: 0.05 });
+          obs.observe(el);
+        }}
         style={{
           background: "#0F172A",
           color: "#fff",
           padding: "56px 24px 32px",
+          overflow: "hidden",
+          position: "relative",
         }}
       >
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <span className="footer-tagline">India's Final Stop for <span style={{color:"#3B82F6"}}>Smart Shopping.</span></span>
           <div
             style={{
               display: "grid",
@@ -3725,6 +3733,7 @@ export default function App() {
                       justifyContent: "center",
                       cursor: "pointer",
                       fontSize: 16,
+                      transition: "all 0.25s",
                     }}
                   >
                     {s}
@@ -3816,10 +3825,11 @@ export default function App() {
               ))}
             </div>
           </div>
+          <div className="footer-divider" />
           <div
+            className="footer-bottom"
             style={{
-              borderTop: "1px solid rgba(255,255,255,0.08)",
-              paddingTop: 28,
+              paddingTop: 0,
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",

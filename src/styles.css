@@ -259,3 +259,88 @@
     gap: 12px !important;
   }
 }
+
+/* ── Footer Reveal Animation ── */
+footer::before {
+  content: 'CARTARO';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(60px, 12vw, 160px);
+  font-weight: 900;
+  color: rgba(255,255,255,0.025);
+  letter-spacing: -4px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 0;
+  transition: opacity 1.5s ease;
+}
+footer > div {
+  position: relative;
+  z-index: 1;
+}
+footer > div > div:first-child > div {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+footer > div > div:first-child > div:nth-child(1) { transition-delay: 0.05s; }
+footer > div > div:first-child > div:nth-child(2) { transition-delay: 0.15s; }
+footer > div > div:first-child > div:nth-child(3) { transition-delay: 0.25s; }
+footer > div > div:first-child > div:nth-child(4) { transition-delay: 0.35s; }
+footer.footer-visible > div > div:first-child > div {
+  opacity: 1;
+  transform: translateY(0);
+}
+footer .footer-tagline {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0s, transform 0.8s ease 0s;
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 48px;
+  line-height: 1.1;
+}
+footer.footer-visible .footer-tagline {
+  opacity: 1;
+  transform: translateY(0);
+}
+footer .footer-divider {
+  width: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  transition: width 0.9s ease 0.4s;
+  margin-bottom: 28px;
+}
+footer.footer-visible .footer-divider {
+  width: 100%;
+}
+footer .footer-bottom {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+}
+footer.footer-visible .footer-bottom {
+  opacity: 1;
+  transform: translateY(0);
+}
+footer .footer-link:hover {
+  color: #fff !important;
+  padding-left: 6px;
+}
+footer .footer-link {
+  transition: all 0.2s;
+}
+footer .footer-social:hover {
+  background: rgba(59,130,246,0.35) !important;
+  transform: scale(1.15);
+}
+footer .footer-social {
+  transition: all 0.25s;
+}
