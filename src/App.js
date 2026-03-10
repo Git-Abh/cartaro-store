@@ -2595,18 +2595,18 @@ const TrackingPage = () => {
   const [loading, setLoading] = useState(false);
   const [cancelling, setCancelling] = useState(false);
   const [docId, setDocId] = useState(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const STEPS = ["Order Placed", "Confirmed", "Packed & Shipped", "Out for Delivery", "Delivered"];
   const STATUS_STEP = { "pending": 0, "confirmed": 1, "shipped": 2, "out for delivery": 3, "delivered": 4 };
   const cancelOrder = async () => {
     if (!docId) return;
-    if (!window.confirm("Are you sure you want to cancel this order?")) return;
     setCancelling(true);
+    setShowCancelModal(false);
     try {
       await updateDoc(doc(db, "orders", docId), { status: "cancelled" });
       setResult(prev => ({ ...prev, status: "cancelled" }));
     } catch (err) {
       console.error("Cancel error:", err);
-      alert("Failed to cancel. Please try again.");
     }
     setCancelling(false);
   };
@@ -2845,12 +2845,29 @@ const TrackingPage = () => {
             )}
             {result.status === "pending" && (
               <button
-                onClick={cancelOrder}
+                onClick={() => setShowCancelModal(true)}
                 disabled={cancelling}
-                style={{ marginTop: 20, width: "100%", padding: "13px", background: cancelling ? "#E2E8F0" : "#FEF2F2", color: "#DC2626", border: "1.5px solid #FECACA", borderRadius: 12, fontWeight: 700, fontSize: 15, cursor: cancelling ? "not-allowed" : "pointer" }}
+                style={{ marginTop: 20, width: "100%", padding: "13px", background: "#FEF2F2", color: "#DC2626", border: "1.5px solid #FECACA", borderRadius: 12, fontWeight: 700, fontSize: 15, cursor: "pointer" }}
               >
                 {cancelling ? "Cancelling..." : "❌ Cancel Order"}
               </button>
+            )}
+            {showCancelModal && (
+              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
+                <div style={{ background: "#fff", borderRadius: 20, padding: 32, maxWidth: 400, width: "100%", textAlign: "center", boxShadow: "0 20px 60px rgba(0,0,0,0.2)" }}>
+                  <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+                  <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 22, fontWeight: 800, marginBottom: 8 }}>Cancel Order?</h2>
+                  <p style={{ color: "#64748B", marginBottom: 24, fontSize: 14 }}>Are you sure you want to cancel order <strong>#{result.orderId}</strong>? This cannot be undone.</p>
+                  <div style={{ display: "flex", gap: 12 }}>
+                    <button onClick={() => setShowCancelModal(false)} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "1.5px solid #E2E8F0", background: "#F8FAFC", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                      Keep Order
+                    </button>
+                    <button onClick={cancelOrder} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "none", background: "#DC2626", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                      Yes, Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
