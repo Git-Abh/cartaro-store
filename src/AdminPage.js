@@ -32,6 +32,8 @@ const AdminPage = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [showProductForm, setShowProductForm] = useState(false);
   const [productSearch, setProductSearch] = useState("");
+  const [deleteModal, setDeleteModal] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(null);
 
   const login = () => {
     if (password === ADMIN_PASSWORD) setAuthed(true);
@@ -85,10 +87,11 @@ const AdminPage = () => {
     setProductForm(EMPTY_PRODUCT);
   };
 
-  const deleteProduct = async (firebaseId) => {
-    if (!window.confirm("Delete this product?")) return;
-    await deleteDoc(doc(db, "products", firebaseId));
-    setProducts(products.filter(p => p.firebaseId !== firebaseId));
+  const deleteProduct = async () => {
+    if (!deleteModal) return;
+    await deleteDoc(doc(db, "products", deleteModal.firebaseId));
+    setProducts(products.filter(p => p.firebaseId !== deleteModal.firebaseId));
+    setDeleteModal(null);
   };
 
   const editProduct = (p) => {
@@ -314,6 +317,48 @@ const AdminPage = () => {
             </div>
           )}
 
+          {/* Delete Confirm Modal */}
+          {deleteModal && (
+            <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
+              <div style={{ background: "#fff", borderRadius: 20, padding: 32, maxWidth: 400, width: "100%", textAlign: "center", boxShadow: "0 20px 60px rgba(0,0,0,0.2)" }}>
+                <div style={{ fontSize: 48, marginBottom: 16 }}>🗑️</div>
+                <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 22, fontWeight: 800, marginBottom: 8 }}>Delete Product?</h2>
+                <p style={{ color: "#64748B", marginBottom: 8, fontSize: 14 }}>You are about to delete</p>
+                <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 24 }}>{deleteModal.img} {deleteModal.name}</p>
+                <p style={{ color: "#EF4444", fontSize: 13, marginBottom: 24 }}>This cannot be undone. The product will be removed from your store immediately.</p>
+                <div style={{ display: "flex", gap: 12 }}>
+                  <button onClick={() => setDeleteModal(null)} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "1.5px solid #E2E8F0", background: "#F8FAFC", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                    Cancel
+                  </button>
+                  <button onClick={deleteProduct} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "none", background: "#EF4444", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                    Yes, Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Delete Confirm Modal */}
+          {deleteModal && (
+            <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
+              <div style={{ background: "#fff", borderRadius: 20, padding: 32, maxWidth: 400, width: "100%", textAlign: "center", boxShadow: "0 20px 60px rgba(0,0,0,0.2)" }}>
+                <div style={{ fontSize: 48, marginBottom: 16 }}>🗑️</div>
+                <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 22, fontWeight: 800, marginBottom: 8 }}>Delete Product?</h2>
+                <p style={{ color: "#64748B", marginBottom: 8, fontSize: 14 }}>You are about to delete</p>
+                <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 24 }}>{deleteModal.img} {deleteModal.name}</p>
+                <p style={{ color: "#EF4444", fontSize: 13, marginBottom: 24 }}>This cannot be undone. The product will be removed from your store immediately.</p>
+                <div style={{ display: "flex", gap: 12 }}>
+                  <button onClick={() => setDeleteModal(null)} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "1.5px solid #E2E8F0", background: "#F8FAFC", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                    Cancel
+                  </button>
+                  <button onClick={deleteProduct} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "none", background: "#EF4444", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                    Yes, Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Products Grid */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
             {filteredProducts.map(p => (
@@ -322,7 +367,7 @@ const AdminPage = () => {
                   <div style={{ fontSize: 40 }}>{p.img}</div>
                   <div style={{ display: "flex", gap: 8 }}>
                     <button onClick={() => editProduct(p)} style={{ padding: "6px 12px", borderRadius: 8, border: "1.5px solid #3B82F6", color: "#3B82F6", background: "#EFF6FF", fontWeight: 600, cursor: "pointer", fontSize: 13 }}>✏️ Edit</button>
-                    <button onClick={() => deleteProduct(p.firebaseId)} style={{ padding: "6px 12px", borderRadius: 8, border: "1.5px solid #EF4444", color: "#EF4444", background: "#FEF2F2", fontWeight: 600, cursor: "pointer", fontSize: 13 }}>🗑️</button>
+                    <button onClick={() => setDeleteModal(p)} style={{ padding: "6px 12px", borderRadius: 8, border: "1.5px solid #EF4444", color: "#EF4444", background: "#FEF2F2", fontWeight: 600, cursor: "pointer", fontSize: 13 }}>🗑️</button>
                   </div>
                 </div>
                 <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{p.name}</div>
