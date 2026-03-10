@@ -111,7 +111,7 @@ const AdminPage = () => {
                     onChange={e => updateStatus(order.id, e.target.value)}
                     style={{ marginTop: 8, padding: "6px 10px", borderRadius: 8, border: `2px solid ${statusColor(order.status)}`, color: statusColor(order.status), fontWeight: 700, cursor: "pointer", fontSize: 13 }}
                   >
-                    {["pending","confirmed","shipped","delivered","cancelled"].map(s => (
+                    {["pending","confirmed","shipped","out for delivery","delivered","cancelled"].map(s => (
                       <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
                     ))}
                   </select>
