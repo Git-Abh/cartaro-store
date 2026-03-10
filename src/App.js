@@ -3415,6 +3415,7 @@ export default function App() {
                   style={{
                     position: "fixed",
                     right: 16,
+                    left: 16,
                     top: 70,
                     width: isMobile ? "calc(100vw - 32px)" : 340,
                     background: "#fff",
