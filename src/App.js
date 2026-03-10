@@ -3429,6 +3429,7 @@ export default function App() {
                     autoFocus
                     value={searchQ}
                     onChange={(e) => setSearchQ(e.target.value)}
+                    onInput={(e) => setSearchQ(e.target.value)}
                     placeholder="Search products..."
                     style={{
                       width: "100%",
