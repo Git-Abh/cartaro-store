@@ -441,21 +441,22 @@ const ProductCard = ({
             View
           </button>
           <button
-            onClick={() => onAddToCart(product)}
+            onClick={() => product.stock > 0 && onAddToCart(product)}
+            disabled={product.stock === 0}
             style={{
               flex: 2,
               padding: "9px 0",
               borderRadius: 10,
               border: "none",
-              background: "linear-gradient(135deg,#2563EB,#3B82F6)",
-              color: "#fff",
+              background: product.stock === 0 ? "#E2E8F0" : "linear-gradient(135deg,#2563EB,#3B82F6)",
+              color: product.stock === 0 ? "#94A3B8" : "#fff",
               fontSize: 13,
               fontWeight: 700,
-              cursor: "pointer",
+              cursor: product.stock === 0 ? "not-allowed" : "pointer",
               transition: "opacity 0.2s",
             }}
           >
-            Add to Cart
+            {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
           </button>
         </div>
       </div>
@@ -1605,23 +1606,22 @@ const ProductPage = ({
           {/* Buttons */}
           <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
             <button
-              onClick={handleAdd}
+              onClick={product.stock > 0 ? handleAdd : undefined}
+              disabled={product.stock === 0}
               style={{
                 flex: 1,
                 padding: "15px 0",
                 borderRadius: 12,
                 border: "none",
-                background: added
-                  ? "#10B981"
-                  : "linear-gradient(135deg,#2563EB,#3B82F6)",
-                color: "#fff",
+                background: product.stock === 0 ? "#E2E8F0" : added ? "#10B981" : "linear-gradient(135deg,#2563EB,#3B82F6)",
+                color: product.stock === 0 ? "#94A3B8" : "#fff",
                 fontWeight: 700,
                 fontSize: 16,
-                cursor: "pointer",
+                cursor: product.stock === 0 ? "not-allowed" : "pointer",
                 transition: "background 0.3s",
               }}
             >
-              {added ? "✓ Added to Cart!" : "Add to Cart"}
+              {product.stock === 0 ? "Out of Stock" : added ? "✓ Added to Cart!" : "Add to Cart"}
             </button>
             <button
               onClick={() => onWishlist(product.id)}
@@ -3270,6 +3270,7 @@ export default function App() {
   };
 
   const addToCart = (product) => {
+    if (product.stock === 0) return;
     setCart((c) => {
       const idx = c.findIndex((i) => i.id === product.id);
       if (idx > -1) {
