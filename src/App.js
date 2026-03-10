@@ -3847,8 +3847,187 @@ export default function App() {
             </div>
           </div>
         </div>
-      </footer>
-      <Analytics />
+      <style>{`
+        @keyframes footerFadeUp {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes footerLineGrow {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        .footer-reveal {
+          position: relative;
+          overflow: hidden;
+        }
+        .footer-reveal::before {
+          content: 'CARTARO';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: 'Syne', sans-serif;
+          font-size: clamp(80px, 15vw, 180px);
+          font-weight: 900;
+          color: rgba(255,255,255,0.025);
+          letter-spacing: -4px;
+          pointer-events: none;
+          white-space: nowrap;
+          z-index: 0;
+        }
+        .footer-col {
+          opacity: 0;
+          transform: translateY(32px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .footer-col.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .footer-col:nth-child(1) { transition-delay: 0.05s; }
+        .footer-col:nth-child(2) { transition-delay: 0.15s; }
+        .footer-col:nth-child(3) { transition-delay: 0.25s; }
+        .footer-col:nth-child(4) { transition-delay: 0.35s; }
+        .footer-bottom-bar {
+          opacity: 0;
+          transform: translateY(16px);
+          transition: opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s;
+        }
+        .footer-bottom-bar.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .footer-tagline {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.7s ease 0s, transform 0.7s ease 0s;
+          display: block;
+        }
+        .footer-tagline.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .footer-divider {
+          width: 0;
+          height: 1px;
+          background: rgba(255,255,255,0.08);
+          transition: width 0.8s ease 0.3s;
+        }
+        .footer-divider.visible {
+          width: 100%;
+        }
+        .footer-social-icon {
+          opacity: 0;
+          transform: scale(0.5);
+          transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
+        }
+        .footer-social-icon.visible {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .footer-social-icon:nth-child(1) { transition-delay: 0.2s; }
+        .footer-social-icon:nth-child(2) { transition-delay: 0.3s; }
+        .footer-social-icon:nth-child(3) { transition-delay: 0.4s; }
+        .footer-social-icon:nth-child(4) { transition-delay: 0.5s; }
+        .footer-social-icon:hover { background: rgba(59,130,246,0.3) !important; transform: scale(1.15) !important; }
+        .footer-link:hover { color: #fff !important; padding-left: 6px; transition: all 0.2s; }
+        .footer-link { transition: all 0.2s; }
+      `}</style>
+      <FooterReveal handleAdminClick={handleAdminClick} />
     </div>
   );
 }
+
+function FooterReveal({ handleAdminClick }) {
+  const footerRef = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.05 }
+    );
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const CATEGORIES_LIST = ["Gadgets", "Home Tools", "Fitness", "Car Accessories", "Smart Devices"];
+
+  return (
+    <footer
+      ref={footerRef}
+      className="footer-reveal"
+      style={{ background: "#0F172A", color: "#fff", padding: "64px 24px 32px", marginTop: 0 }}
+    >
+      {/* Big tagline reveal */}
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <span className={`footer-tagline${visible ? " visible" : ""}`}
+          style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 5vw, 52px)", fontWeight: 900, color: "#fff", letterSpacing: -1, marginBottom: 48, display: "block", lineHeight: 1.1 }}>
+          India's Final Stop for <span style={{ color: "#3B82F6" }}>Smart Shopping.</span>
+        </span>
+
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 48, position: "relative", zIndex: 1 }}>
+          {/* Col 1 */}
+          <div className={`footer-col${visible ? " visible" : ""}`}>
+            <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 900, fontSize: 24, marginBottom: 14, letterSpacing: -0.5 }}>
+              🛒 Cartaro
+            </div>
+            <p style={{ color: "#64748B", fontSize: 14, lineHeight: 1.7, maxWidth: 280 }}>
+              India's most trusted destination for trending products. Quality-checked, fast-delivered, and always affordable.
+            </p>
+            <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
+              {["📘", "📷", "🐦", "▶️"].map((s, i) => (
+                <div key={s} className={`footer-social-icon${visible ? " visible" : ""}`}
+                  style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16, transitionDelay: `${0.2 + i * 0.1}s` }}>
+                  {s}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Col 2 */}
+          <div className={`footer-col${visible ? " visible" : ""}`}>
+            <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 15, marginBottom: 16 }}>Quick Links</div>
+            {["Home", "Shop", "About Us", "Contact", "Track Order"].map(l => (
+              <div key={l} className="footer-link" style={{ color: "#64748B", fontSize: 14, marginBottom: 10, cursor: "pointer" }}>{l}</div>
+            ))}
+          </div>
+
+          {/* Col 3 */}
+          <div className={`footer-col${visible ? " visible" : ""}`}>
+            <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 15, marginBottom: 16 }}>Categories</div>
+            {CATEGORIES_LIST.map(c => (
+              <div key={c} className="footer-link" style={{ color: "#64748B", fontSize: 14, marginBottom: 10, cursor: "pointer" }}>{c}</div>
+            ))}
+          </div>
+
+          {/* Col 4 */}
+          <div className={`footer-col${visible ? " visible" : ""}`}>
+            <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 15, marginBottom: 16 }}>Support</div>
+            {["FAQ", "Return Policy", "Privacy Policy", "Terms of Service", "Shipping Info"].map(l => (
+              <div key={l} className="footer-link" style={{ color: "#64748B", fontSize: 14, marginBottom: 10, cursor: "pointer" }}>{l}</div>
+            ))}
+          </div>
+        </div>
+
+        {/* Animated divider */}
+        <div className={`footer-divider${visible ? " visible" : ""}`} style={{ marginBottom: 28 }} />
+
+        {/* Bottom bar */}
+        <div className={`footer-bottom-bar${visible ? " visible" : ""}`}
+          style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+          <div style={{ color: "#475569", fontSize: 13 }}>
+            <span onClick={handleAdminClick} style={{ cursor: "default" }}>© 2026 Cartaro. All rights reserved. Made with ❤️ in India.</span>
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            {["💳", "📱", "🏦", "💵"].map((icon, i) => (
+              <div key={i} style={{ background: "rgba(255,255,255,0.06)", borderRadius: 6, padding: "4px 10px", fontSize: 16 }}>{icon}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function _REMOVED() {
