@@ -3414,23 +3414,35 @@ export default function App() {
                 <div
                   style={{
                     position: "fixed",
-                    right: 16,
-                    left: 16,
-                    top: 70,
-                    width: isMobile ? "calc(100vw - 32px)" : 340,
-                    background: "#fff",
-                    borderRadius: 14,
-                    boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
-                    border: "1px solid #E2E8F0",
-                    zIndex: 200,
-                    overflow: "hidden",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: "rgba(0,0,0,0.4)",
+                    zIndex: 999,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    paddingTop: 70,
                   }}
+                  onClick={() => setSearchOpen(false)}
                 >
+                  <div
+                    style={{
+                      width: isMobile ? "calc(100vw - 32px)" : 340,
+                      background: "#fff",
+                      borderRadius: 14,
+                      boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
+                      overflow: "hidden",
+                      maxHeight: "70vh",
+                      overflowY: "auto",
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                   <input
                     autoFocus
                     value={searchQ}
                     onChange={(e) => setSearchQ(e.target.value)}
-                    onInput={(e) => setSearchQ(e.target.value)}
                     placeholder="Search products..."
                     style={{
                       width: "100%",
@@ -3439,6 +3451,7 @@ export default function App() {
                       fontSize: 14,
                       outline: "none",
                       borderBottom: "1px solid #F1F5F9",
+                      boxSizing: "border-box",
                     }}
                   />
                   {searchResults.map((p) => (
@@ -3487,6 +3500,7 @@ export default function App() {
                       No products found
                     </div>
                   )}
+                  </div>
                 </div>
               )}
             </div>
