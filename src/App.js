@@ -2,7 +2,7 @@ import "./styles.css";
 import AdminPage from "./AdminPage";
 import { db } from "./firebase";
 import emailjs from "@emailjs/browser";
-import { collection, addDoc, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, doc, updateDoc, orderBy } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect, useRef } from "react";
 
@@ -3221,6 +3221,21 @@ const ContactPage = () => {
 export default function App() {
   const [page, setPage] = useState("home");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [products, setProducts] = useState(PRODUCTS);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const q = query(collection(db, "products"), orderBy("id"));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setProducts(snap.docs.map(d => ({ ...d.data(), firebaseId: d.id })));
+        }
+      } catch (err) {
+        console.error("Failed to load products:", err);
+      }
+    };
+    fetchProducts();
+  }, []);
   useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handler);
@@ -3295,7 +3310,7 @@ export default function App() {
 
   const searchResults =
     searchQ.length > 1
-      ? PRODUCTS.filter(
+      ? products.filter(
           (p) =>
             p.name.toLowerCase().includes(searchQ.toLowerCase()) ||
             p.category.toLowerCase().includes(searchQ.toLowerCase())
@@ -3605,7 +3620,7 @@ export default function App() {
       <main>
         {page === "home" && (
           <HomePage
-            products={PRODUCTS}
+            products={products}
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
             wishlist={wishlist}
@@ -3615,7 +3630,7 @@ export default function App() {
         )}
         {page === "shop" && (
           <ShopPage
-            products={PRODUCTS}
+            products={products}
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
             wishlist={wishlist}
@@ -3628,13 +3643,13 @@ export default function App() {
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
             wishlist={wishlist}
-            products={PRODUCTS}
+            products={products}
             setPage={setPage}
           />
         )}
         {page === "wishlist" && (<WishlistPage
             wishlist={wishlist}
-            products={PRODUCTS}
+            products={products}
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
             setPage={setPage}
