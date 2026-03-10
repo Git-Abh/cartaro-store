@@ -2748,10 +2748,10 @@ const TrackingPage = () => {
               }}
             >
               {[
-                ["Product", result.product],
-                ["Customer", result.customer],
-                ["City", result.city],
-                ["Order Date", result.date],
+                ["Items", result.items?.map(i => `${i.name} x${i.qty}`).join(", ")],
+                ["Customer", result.customer?.name],
+                ["City", result.customer?.city],
+                ["Order Date", result.createdAt?.toDate ? result.createdAt.toDate().toLocaleDateString("en-IN") : "N/A"],
               ].map(([k, v]) => (
                 <div key={k}>
                   <div
@@ -2781,11 +2781,7 @@ const TrackingPage = () => {
                     height: "100%",
                     background: "linear-gradient(90deg,#2563EB,#60A5FA)",
                     borderRadius: 2,
-                    width: `${
-                      ((result.steps.filter(Boolean).length - 1) /
-                        (STEPS.length - 1)) *
-                      100
-                    }%`,
+                    width: `${((STATUS_STEP[result.status?.toLowerCase()] ?? 0) / (STEPS.length - 1)) * 100}%`,
                     transition: "width 1s ease",
                   }}
                 />
@@ -2813,7 +2809,7 @@ const TrackingPage = () => {
                         width: 32,
                         height: 32,
                         borderRadius: "50%",
-                        background: result.steps[i]
+                        background: i <= (STATUS_STEP[result.status?.toLowerCase()] ?? 0)
                           ? "linear-gradient(135deg,#2563EB,#3B82F6)"
                           : "#E2E8F0",
                         display: "flex",
@@ -2824,13 +2820,13 @@ const TrackingPage = () => {
                         zIndex: 1,
                       }}
                     >
-                      {result.steps[i] ? "✓" : i + 1}
+                      {i <= (STATUS_STEP[result.status?.toLowerCase()] ?? 0) ? "✓" : i + 1}
                     </div>
                     <div
                       style={{
                         fontSize: 11,
-                        color: result.steps[i] ? "#0F172A" : "#94A3B8",
-                        fontWeight: result.steps[i] ? 700 : 400,
+                        color: i <= (STATUS_STEP[result.status?.toLowerCase()] ?? 0) ? "#0F172A" : "#94A3B8",
+                        fontWeight: i <= (STATUS_STEP[result.status?.toLowerCase()] ?? 0) ? 700 : 400,
                         textAlign: "center",
                         lineHeight: 1.3,
                       }}
