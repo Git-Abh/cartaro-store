@@ -326,11 +326,13 @@ const ProductCard = ({
     >
       {/* Image area */}
       <div
+        onClick={() => onView(product)}
         style={{
           background: "linear-gradient(135deg,#EFF6FF,#F0F9FF)",
           padding: "28px 20px 20px",
           position: "relative",
           textAlign: "center",
+          cursor: "pointer",
         }}
       >
         <div style={{ position: "fixed", top: 12, left: 12 }}>
@@ -424,22 +426,7 @@ const ProductCard = ({
           </span>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
-          <button
-            onClick={() => onView(product)}
-            style={{
-              flex: 1,
-              padding: "9px 0",
-              borderRadius: 10,
-              border: "1.5px solid #E2E8F0",
-              background: "#fff",
-              color: "#475569",
-              fontSize: 13,
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-          >
-            View
-          </button>
+
           <button
             onClick={() => product.stock > 0 && onAddToCart(product)}
             disabled={product.stock === 0}
