@@ -3414,31 +3414,21 @@ export default function App() {
                 <div
                   style={{
                     position: "fixed",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: "rgba(0,0,0,0.4)",
-                    zIndex: 999,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    paddingTop: 70,
+                    right: isMobile ? 8 : 16,
+                    left: isMobile ? 8 : "auto",
+                    top: 64,
+                    width: isMobile ? "auto" : 340,
+                    background: "#fff",
+                    borderRadius: 14,
+                    boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
+                    border: "1px solid #E2E8F0",
+                    zIndex: 9999,
+                    overflow: "hidden",
+                    maxHeight: "70vh",
+                    overflowY: "auto",
                   }}
-                  onClick={() => setSearchOpen(false)}
                 >
-                  <div
-                    style={{
-                      width: isMobile ? "calc(100vw - 32px)" : 340,
-                      background: "#fff",
-                      borderRadius: 14,
-                      boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
-                      overflow: "hidden",
-                      maxHeight: "70vh",
-                      overflowY: "auto",
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
+                  <div>
                   <input
                     autoFocus
                     value={searchQ}
@@ -3501,7 +3491,6 @@ export default function App() {
                     </div>
                   )}
                   </div>
-                </div>
               )}
             </div>
             {/* Wishlist */}
