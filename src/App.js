@@ -3489,7 +3489,9 @@ export default function App() {
                     >
                       No products found
                     </div>
+                  )}
                   </div>
+                </div>
               )}
             </div>
             {/* Wishlist */}
