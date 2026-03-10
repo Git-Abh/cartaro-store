@@ -2592,37 +2592,24 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
 const TrackingPage = () => {
   const [orderId, setOrderId] = useState("");
   const [result, setResult] = useState(null);
-
-  const MOCK = {
-    CRT12345678: {
-      status: "Out for Delivery",
-      product: "SmartFit Pro Band",
-      customer: "Rahul Verma",
-      city: "Delhi",
-      date: "Mar 8, 2026",
-      steps: [true, true, true, true, false],
-    },
-    CRT87654321: {
-      status: "Shipped",
-      product: "AirFlow Pro Neck Fan",
-      customer: "Priya Sharma",
-      city: "Mumbai",
-      date: "Mar 7, 2026",
-      steps: [true, true, true, false, false],
-    },
-  };
-
-  const STEPS = [
-    "Order Placed",
-    "Payment Confirmed",
-    "Packed & Dispatched",
-    "Out for Delivery",
-    "Delivered",
-  ];
-
-  const track = () => {
-    const data = MOCK[orderId.toUpperCase()];
-    setResult(data || "not_found");
+  const [loading, setLoading] = useState(false);
+  const STEPS = ["Order Placed", "Confirmed", "Packed & Shipped", "Out for Delivery", "Delivered"];
+  const STATUS_STEP = { "pending": 0, "confirmed": 1, "shipped": 2, "out for delivery": 3, "delivered": 4 };
+  const track = async () => {
+    if (!orderId.trim()) return;
+    setLoading(true);
+    setResult(null);
+    try {
+      const q = query(collection(db, "orders"), where("orderId", "==", orderId.trim().toUpperCase()));
+      const snap = await getDocs(q);
+      console.log("Found:", snap.size, "for", orderId.trim().toUpperCase());
+      if (snap.empty) { setResult("not_found"); }
+      else { setResult(snap.docs[0].data()); }
+    } catch (err) {
+      console.error("Track error:", err);
+      setResult("not_found");
+    }
+    setLoading(false);
   };
 
   return (
