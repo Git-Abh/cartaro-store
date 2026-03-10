@@ -311,6 +311,7 @@ const ProductCard = ({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => onView(product)}
       style={{
         background: "#fff",
         borderRadius: 16,
@@ -326,20 +327,18 @@ const ProductCard = ({
     >
       {/* Image area */}
       <div
-        onClick={() => onView(product)}
         style={{
           background: "linear-gradient(135deg,#EFF6FF,#F0F9FF)",
           padding: "28px 20px 20px",
           position: "relative",
           textAlign: "center",
-          cursor: "pointer",
         }}
       >
         <div style={{ position: "fixed", top: 12, left: 12 }}>
           <Badge label={product.badge} />
         </div>
         <button
-          onClick={() => onWishlist(product.id)}
+          onClick={(e) => { e.stopPropagation(); onWishlist(product.id); }}
           style={{
             position: "fixed",
             top: 12,
@@ -428,7 +427,7 @@ const ProductCard = ({
         <div style={{ display: "flex", gap: 8 }}>
 
           <button
-            onClick={() => product.stock > 0 && onAddToCart(product)}
+            onClick={(e) => { e.stopPropagation(); product.stock > 0 && onAddToCart(product); }}
             disabled={product.stock === 0}
             style={{
               flex: 2,
