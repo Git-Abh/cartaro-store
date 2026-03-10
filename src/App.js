@@ -333,13 +333,13 @@ const ProductCard = ({
           textAlign: "center",
         }}
       >
-        <div style={{ position: "absolute", top: 12, left: 12 }}>
+        <div style={{ position: "fixed", top: 12, left: 12 }}>
           <Badge label={product.badge} />
         </div>
         <button
           onClick={() => onWishlist(product.id)}
           style={{
-            position: "absolute",
+            position: "fixed",
             top: 12,
             right: 12,
             background: "none",
@@ -591,7 +591,7 @@ const HomePage = ({
         {/* bg decoration */}
         <div
           style={{
-            position: "absolute",
+            position: "fixed",
             top: -100,
             right: -100,
             width: 400,
@@ -604,7 +604,7 @@ const HomePage = ({
         />
         <div
           style={{
-            position: "absolute",
+            position: "fixed",
             bottom: -80,
             left: -80,
             width: 300,
@@ -1233,7 +1233,7 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView }) => {
         <div style={{ flex: 1, minWidth: 220, position: "relative" }}>
           <span
             style={{
-              position: "absolute",
+              position: "fixed",
               left: 14,
               top: "50%",
               transform: "translateY(-50%)",
@@ -2767,7 +2767,7 @@ const TrackingPage = () => {
             <div style={{ position: "relative" }}>
               <div
                 style={{
-                  position: "absolute",
+                  position: "fixed",
                   top: 16,
                   left: 16,
                   right: 16,
@@ -3413,10 +3413,10 @@ export default function App() {
               {searchOpen && (
                 <div
                   style={{
-                    position: "absolute",
-                    right: 0,
-                    top: 44,
-                    width: isMobile ? "90vw" : 340,
+                    position: "fixed",
+                    right: 16,
+                    top: 70,
+                    width: isMobile ? "calc(100vw - 32px)" : 340,
                     background: "#fff",
                     borderRadius: 14,
                     boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
@@ -3506,7 +3506,7 @@ export default function App() {
               {wishlist.length > 0 && (
                 <span
                   style={{
-                    position: "absolute",
+                    position: "fixed",
                     top: 2,
                     right: 2,
                     background: "#EF4444",
