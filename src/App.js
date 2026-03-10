@@ -2838,6 +2838,20 @@ const TrackingPage = () => {
             >
               📍 Current Status: {result.status}
             </div>
+            {result.status === "cancelled" && (
+              <div style={{ marginTop: 16, background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 10, padding: "12px 16px", color: "#DC2626", fontWeight: 700, fontSize: 14 }}>
+                ❌ This order has been cancelled.
+              </div>
+            )}
+            {result.status === "pending" && (
+              <button
+                onClick={cancelOrder}
+                disabled={cancelling}
+                style={{ marginTop: 20, width: "100%", padding: "13px", background: cancelling ? "#E2E8F0" : "#FEF2F2", color: "#DC2626", border: "1.5px solid #FECACA", borderRadius: 12, fontWeight: 700, fontSize: 15, cursor: cancelling ? "not-allowed" : "pointer" }}
+              >
+                {cancelling ? "Cancelling..." : "❌ Cancel Order"}
+              </button>
+            )}
           </div>
         </div>
       )}
