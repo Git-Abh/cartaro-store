@@ -5,6 +5,8 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@vercel/analytics": "^1.6.1",
+    "ajv": "^8.18.0",
+    "ajv-keywords": "^5.1.0",
     "firebase": "^12.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
