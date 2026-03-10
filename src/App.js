@@ -657,7 +657,7 @@ const HomePage = ({
             }}
           >
             <button
-              onClick={() => setPage("shop")}
+              onClick={() => navigateTo("shop")}
               style={{
                 padding: "15px 36px",
                 borderRadius: 12,
@@ -673,7 +673,7 @@ const HomePage = ({
               Shop Now →
             </button>
             <button
-              onClick={() => setPage("about")}
+              onClick={() => navigateTo("about")}
               style={{
                 padding: "15px 32px",
                 borderRadius: 12,
@@ -861,7 +861,7 @@ const HomePage = ({
           </div>
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <button
-              onClick={() => setPage("shop")}
+              onClick={() => navigateTo("shop")}
               style={{
                 padding: "14px 40px",
                 borderRadius: 12,
@@ -1396,14 +1396,14 @@ const ProductPage = ({
         }}
       >
         <span
-          onClick={() => setPage("home")}
+          onClick={() => navigateTo("home")}
           style={{ cursor: "pointer", color: "#3B82F6" }}
         >
           Home
         </span>{" "}
         /
         <span
-          onClick={() => setPage("shop")}
+          onClick={() => navigateTo("shop")}
           style={{ cursor: "pointer", color: "#3B82F6" }}
         >
           Shop
@@ -1809,7 +1809,7 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) 
       <div style={{ fontSize: 72, marginBottom: 24 }}>🤍</div>
       <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 28, marginBottom: 12 }}>Your wishlist is empty</h2>
       <p style={{ color: "#64748B", marginBottom: 32 }}>Save items you love and find them here.</p>
-      <button onClick={() => setPage("shop")} style={{ background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 12, padding: "14px 32px", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>Browse Products</button>
+      <button onClick={() => navigateTo("shop")} style={{ background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 12, padding: "14px 32px", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>Browse Products</button>
     </div>
   );
   return (
@@ -1817,7 +1817,7 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) 
       <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8 }}>My Wishlist</h1>
       <p style={{ color: "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 24 }}>
-        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} onView={() => setPage("shop")} />)}
+        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} onView={() => navigateTo("shop")} />)}
       </div>
     </div>
   );
@@ -1880,7 +1880,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
           Looks like you haven't added anything yet.
         </p>
         <button
-          onClick={() => setPage("shop")}
+          onClick={() => navigateTo("shop")}
           style={{
             padding: "14px 36px",
             borderRadius: 12,
@@ -2127,7 +2127,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
             )}
           </div>
           <button
-            onClick={() => setPage("checkout")}
+            onClick={() => navigateTo("checkout")}
             style={{
               width: "100%",
               padding: "15px 0",
@@ -2303,7 +2303,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
           <button
-            onClick={() => setPage("tracking")}
+            onClick={() => navigateTo("tracking")}
             style={{
               padding: "13px 28px",
               borderRadius: 12,
@@ -2318,7 +2318,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
             Track Order
           </button>
           <button
-            onClick={() => setPage("home")}
+            onClick={() => navigateTo("home")}
             style={{
               padding: "13px 28px",
               borderRadius: 12,
@@ -3205,7 +3205,22 @@ const ContactPage = () => {
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 
 export default function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => {
+    const h = window.location.hash.replace("#", "");
+    return h || "home";
+  });
+  const navigateTo = (newPage) => {
+    window.location.hash = newPage;
+    setPage(newPage);
+  };
+  useEffect(() => {
+    const handlePop = () => {
+      const h = window.location.hash.replace("#", "");
+      setPage(h || "home");
+    };
+    window.addEventListener("popstate", handlePop);
+    return () => window.removeEventListener("popstate", handlePop);
+  }, []);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [products, setProducts] = useState(PRODUCTS);
   useEffect(() => {
@@ -3231,7 +3246,7 @@ export default function App() {
   const handleAdminClick = () => {
     const newCount = adminClicks + 1;
     setAdminClicks(newCount);
-    if (newCount >= 3) { setPage("admin"); setAdminClicks(0); } else { console.log("Admin clicks:", newCount); }
+    if (newCount >= 3) { navigateTo("admin"); setAdminClicks(0); } else { console.log("Admin clicks:", newCount); }
   };
   const [cart, setCart] = useState(() => {
     try { return JSON.parse(localStorage.getItem("cartaro-cart")) || []; }
@@ -3282,7 +3297,7 @@ export default function App() {
 
   const viewProduct = (product) => {
     setSelectedProduct(product);
-    setPage("product");
+    navigateTo("product");
   };
 
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
@@ -3368,7 +3383,7 @@ export default function App() {
         >
           <div
             style={{ cursor: "pointer", flex: 1 }}
-            onClick={() => setPage("home")}
+            onClick={() => navigateTo("home")}
           >
             <Logo />
           </div>
@@ -3512,7 +3527,7 @@ export default function App() {
             </div>
             {/* Wishlist */}
             <button
-              onClick={() => setPage("wishlist")}
+              onClick={() => navigateTo("wishlist")}
               style={{
                 background: "none",
                 border: "none",
@@ -3549,7 +3564,7 @@ export default function App() {
             </button>
             {/* Cart */}
             <button
-              onClick={() => setPage("cart")}
+              onClick={() => navigateTo("cart")}
               style={{
                 position: "relative",
                 background: "linear-gradient(135deg,#2563EB,#3B82F6)",
@@ -3612,7 +3627,7 @@ export default function App() {
             onWishlist={toggleWishlist}
             wishlist={wishlist}
             onView={viewProduct}
-            setPage={setPage}
+            setPage={navigateTo}
           />
         )}
         {page === "shop" && (
@@ -3631,7 +3646,7 @@ export default function App() {
             onWishlist={toggleWishlist}
             wishlist={wishlist}
             products={products}
-            setPage={setPage}
+            setPage={navigateTo}
           />
         )}
         {page === "wishlist" && (<WishlistPage
@@ -3639,13 +3654,13 @@ export default function App() {
             products={products}
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
-            setPage={setPage}
+            setPage={navigateTo}
           />)}
         {page === "cart" && (
           <CartPage
             cart={cart}
             setCart={setCart}
-            setPage={setPage}
+            setPage={navigateTo}
             setCoupon={setCoupon}
             coupon={coupon}
             discount={discount}
@@ -3655,7 +3670,7 @@ export default function App() {
           <CheckoutPage
             cart={cart}
             setCart={setCart}
-            setPage={setPage}
+            setPage={navigateTo}
             discount={discount}
           />
         )}
