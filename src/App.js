@@ -1926,7 +1926,8 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: window.innerWidth < 768 ? "1fr" : "1fr 360px",
+          gridTemplateColumns: "1fr 360px",
+          ["@media (max-width: 768px)"]: { gridTemplateColumns: "1fr" },
           gap: 32,
           alignItems: "start",
         }}
@@ -3205,6 +3206,12 @@ const ContactPage = () => {
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
   const [adminClicks, setAdminClicks] = useState(0);
   const handleAdminClick = () => {
     const newCount = adminClicks + 1;
