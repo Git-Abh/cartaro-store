@@ -2403,7 +2403,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 340px",
+          gridTemplateColumns: window.innerWidth < 768 ? "1fr" : "1fr 340px",
           gap: 32,
           alignItems: "start",
         }}
