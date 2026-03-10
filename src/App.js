@@ -2,7 +2,7 @@ import "./styles.css";
 import AdminPage from "./AdminPage";
 import { db } from "./firebase";
 import emailjs from "@emailjs/browser";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect, useRef } from "react";
 
@@ -2593,8 +2593,23 @@ const TrackingPage = () => {
   const [orderId, setOrderId] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  const [docId, setDocId] = useState(null);
   const STEPS = ["Order Placed", "Confirmed", "Packed & Shipped", "Out for Delivery", "Delivered"];
   const STATUS_STEP = { "pending": 0, "confirmed": 1, "shipped": 2, "out for delivery": 3, "delivered": 4 };
+  const cancelOrder = async () => {
+    if (!docId) return;
+    if (!window.confirm("Are you sure you want to cancel this order?")) return;
+    setCancelling(true);
+    try {
+      await updateDoc(doc(db, "orders", docId), { status: "cancelled" });
+      setResult(prev => ({ ...prev, status: "cancelled" }));
+    } catch (err) {
+      console.error("Cancel error:", err);
+      alert("Failed to cancel. Please try again.");
+    }
+    setCancelling(false);
+  };
   const track = async () => {
     if (!orderId.trim()) return;
     setLoading(true);
@@ -2604,7 +2619,7 @@ const TrackingPage = () => {
       const snap = await getDocs(q);
       console.log("Found:", snap.size, "for", orderId.trim().toUpperCase());
       if (snap.empty) { setResult("not_found"); }
-      else { setResult(snap.docs[0].data()); }
+      else { setDocId(snap.docs[0].id); setResult(snap.docs[0].data()); }
     } catch (err) {
       console.error("Track error:", err);
       setResult("not_found");
@@ -2658,22 +2673,7 @@ const TrackingPage = () => {
           Track
         </button>
       </div>
-      <div style={{ color: "#94A3B8", fontSize: 13, marginBottom: 36 }}>
-        Demo IDs:{" "}
-        <span
-          style={{ color: "#3B82F6", cursor: "pointer", fontWeight: 600 }}
-          onClick={() => setOrderId("CRT12345678")}
-        >
-          CRT12345678
-        </span>
-        ,{" "}
-        <span
-          style={{ color: "#3B82F6", cursor: "pointer", fontWeight: 600 }}
-          onClick={() => setOrderId("CRT87654321")}
-        >
-          CRT87654321
-        </span>
-      </div>
+
 
       {result === "not_found" && (
         <div
