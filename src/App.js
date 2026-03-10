@@ -657,7 +657,7 @@ const HomePage = ({
             }}
           >
             <button
-              onClick={() => navigateTo("shop")}
+              onClick={() => setPage("shop")}
               style={{
                 padding: "15px 36px",
                 borderRadius: 12,
@@ -673,7 +673,7 @@ const HomePage = ({
               Shop Now →
             </button>
             <button
-              onClick={() => navigateTo("about")}
+              onClick={() => setPage("about")}
               style={{
                 padding: "15px 32px",
                 borderRadius: 12,
@@ -861,7 +861,7 @@ const HomePage = ({
           </div>
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <button
-              onClick={() => navigateTo("shop")}
+              onClick={() => setPage("shop")}
               style={{
                 padding: "14px 40px",
                 borderRadius: 12,
