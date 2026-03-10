@@ -2,7 +2,7 @@ import "./styles.css";
 import AdminPage from "./AdminPage";
 import { db } from "./firebase";
 import emailjs from "@emailjs/browser";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect, useRef } from "react";
 
