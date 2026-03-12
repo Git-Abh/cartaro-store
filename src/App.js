@@ -1031,7 +1031,7 @@ const HomePage = ({
       <section
         style={{
           padding: "72px 24px",
-          background: "linear-gradient(135deg,#EFF6FF,#DBEAFE)",
+          background: dm ? "#1E293B" : "linear-gradient(135deg,#EFF6FF,#DBEAFE)",
         }}
       >
         <div style={{ maxWidth: 580, margin: "0 auto", textAlign: "center" }}>
@@ -1090,9 +1090,11 @@ const HomePage = ({
                   minWidth: 200,
                   padding: "14px 18px",
                   borderRadius: 12,
-                  border: "1.5px solid #BFDBFE",
+                  border: dm ? "1.5px solid #334155" : "1.5px solid #BFDBFE",
                   fontSize: 15,
                   outline: "none",
+                  background: dm ? "#0F172A" : "#fff",
+                  color: dm ? "#F1F5F9" : "#0F172A",
                 }}
               />
               <button
