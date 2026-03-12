@@ -3672,7 +3672,7 @@ export default function App() {
       </div>
 
       {/* PAGE CONTENT */}
-      <main>
+      <main style={{ background: dm ? "#0F172A" : "#FAFBFF", minHeight: "100vh" }}>
         {page === "home" && (
           <HomePage
             products={products}
