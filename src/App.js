@@ -2075,7 +2075,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
               marginBottom: 20,
             }}
           >
-            <Row label="Subtotal" value={fmt(subtotal)} />
+            <Row dm={dm} label="Subtotal" value={fmt(subtotal)} />
             {discount > 0 && (
               <Row
                 label={`Discount (${discount}%)`}
@@ -2088,7 +2088,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
               value={shipping === 0 ? "FREE 🎉" : fmt(shipping)}
             />
             <div style={{ borderTop: dm ? "1px solid #334155" : "1px solid #E2E8F0", paddingTop: 12 }}>
-              <Row label="Total" value={fmt(total)} bold />
+              <Row dm={dm} label="Total" value={fmt(total)} bold />
             </div>
           </div>
           {/* Coupon */}
@@ -2167,7 +2167,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
   );
 };
 
-const Row = ({ label, value, bold, green }) => (
+const Row = ({ label, value, bold, green, dm }) => (
   <div
     style={{
       display: "flex",
@@ -2535,7 +2535,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               gap: 10,
             }}
           >
-            <Row label="Subtotal" value={fmt(subtotal)} />
+            <Row dm={dm} label="Subtotal" value={fmt(subtotal)} />
             {discount > 0 && (
               <Row
                 label={`Discount (${discount}%)`}
@@ -2548,7 +2548,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               value={shipping === 0 ? "FREE" : fmt(shipping)}
             />
             <div style={{ borderTop: dm ? "1px solid #334155" : "1px solid #E2E8F0", paddingTop: 10 }}>
-              <Row label="Total" value={fmt(total)} bold />
+              <Row dm={dm} label="Total" value={fmt(total)} bold />
             </div>
           </div>
           <button
