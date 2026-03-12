@@ -1880,7 +1880,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
           Looks like you haven't added anything yet.
         </p>
         <button
-          onClick={() => navigateTo("shop")}
+          onClick={() => setPage("shop")}
           style={{
             padding: "14px 36px",
             borderRadius: 12,
@@ -2127,7 +2127,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
             )}
           </div>
           <button
-            onClick={() => navigateTo("checkout")}
+            onClick={() => setPage("checkout")}
             style={{
               width: "100%",
               padding: "15px 0",
