@@ -1823,7 +1823,7 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage, dm
   );
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px", background: dm ? "#0F172A" : "transparent", minHeight: "100vh" }}>
-      <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8, color: dm ? "#F1F5F9" : "#0F172A" }}>My Wishlist</h1>
+      <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8, color: dm ? "#F1F5F9" : "#0F172A" }}>My Wishlist ❤️</h1>
       <p style={{ color: dm ? "#94A3B8" : "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 24 }}>
         {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} dm={dm} onView={() => setPage("shop")} />)}
@@ -3596,9 +3596,9 @@ export default function App() {
               {wishlist.length > 0 && (
                 <span
                   style={{
-                    position: "fixed",
-                    top: 2,
-                    right: 2,
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
                     background: "#EF4444",
                     color: "#fff",
                     borderRadius: "50%",
