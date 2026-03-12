@@ -407,7 +407,7 @@ const ProductCard = ({
               fontFamily: "'Syne', sans-serif",
               fontSize: 20,
               fontWeight: 800,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
             }}
           >
             {fmt(product.price)}
@@ -717,7 +717,7 @@ const HomePage = ({
                 >
                   {val}
                 </div>
-                <div style={{ color: "#64748B", fontSize: 13, marginTop: 2 }}>
+                <div style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 13, marginTop: 2 }}>
                   {lab}
                 </div>
               </div>
@@ -727,7 +727,7 @@ const HomePage = ({
       </section>
 
       {/* TRENDING */}
-      <section style={{ padding: "72px 24px", background: "#FAFBFF" }}>
+      <section style={{ padding: "72px 24px", background: dm ? "#0F172A" : "#FAFBFF" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHeader
             title="🔥 Trending Right Now"
@@ -756,7 +756,7 @@ const HomePage = ({
       </section>
 
       {/* WHY CHOOSE US */}
-      <section style={{ padding: "72px 24px", background: "#fff" }}>
+      <section style={{ padding: "72px 24px", background: dm ? "#1E293B" : "#fff" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <SectionHeader
             title="Why Thousands Choose Cartaro"
@@ -807,8 +807,8 @@ const HomePage = ({
                 style={{
                   padding: "28px 24px",
                   borderRadius: 16,
-                  border: "1px solid #E2E8F0",
-                  background: "#FAFBFF",
+                  border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
+                  background: dm ? "#0F172A" : "#FAFBFF",
                   transition: "box-shadow 0.2s",
                 }}
               >
@@ -818,14 +818,14 @@ const HomePage = ({
                     fontFamily: "'Syne', sans-serif",
                     fontWeight: 700,
                     fontSize: 16,
-                    color: "#0F172A",
+                    color: dm ? "#F1F5F9" : "#0F172A",
                     marginBottom: 8,
                   }}
                 >
                   {f.title}
                 </div>
                 <div
-                  style={{ color: "#64748B", fontSize: 14, lineHeight: 1.6 }}
+                  style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 14, lineHeight: 1.6 }}
                 >
                   {f.desc}
                 </div>
@@ -836,7 +836,7 @@ const HomePage = ({
       </section>
 
       {/* BESTSELLERS */}
-      <section style={{ padding: "72px 24px", background: "#FAFBFF" }}>
+      <section style={{ padding: "72px 24px", background: dm ? "#0F172A" : "#FAFBFF" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHeader
             title="⭐ Best Sellers"
@@ -945,7 +945,7 @@ const HomePage = ({
                     >
                       {t.name}
                     </div>
-                    <div style={{ color: "#64748B", fontSize: 12 }}>
+                    <div style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 12 }}>
                       {t.city}
                     </div>
                   </div>
@@ -957,7 +957,7 @@ const HomePage = ({
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: "72px 24px", background: "#fff" }}>
+      <section style={{ padding: "72px 24px", background: dm ? "#1E293B" : "#fff" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <SectionHeader
             title="Frequently Asked Questions"
@@ -968,7 +968,7 @@ const HomePage = ({
               <div
                 key={i}
                 style={{
-                  borderBottom: "1px solid #E2E8F0",
+                  borderBottom: dm ? "1px solid #334155" : "1px solid #E2E8F0",
                   overflow: "hidden",
                 }}
               >
@@ -991,7 +991,7 @@ const HomePage = ({
                       fontFamily: "'Syne', sans-serif",
                       fontWeight: 700,
                       fontSize: 15,
-                      color: "#0F172A",
+                      color: dm ? "#F1F5F9" : "#0F172A",
                     }}
                   >
                     {f.q}
@@ -1010,7 +1010,7 @@ const HomePage = ({
                 {faqOpen === i && (
                   <div
                     style={{
-                      color: "#64748B",
+                      color: dm ? "#94A3B8" : "#64748B",
                       fontSize: 14,
                       lineHeight: 1.7,
                       paddingBottom: 18,
@@ -1039,7 +1039,7 @@ const HomePage = ({
               fontFamily: "'Syne', sans-serif",
               fontSize: 28,
               fontWeight: 800,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
               marginBottom: 12,
             }}
           >
@@ -1047,7 +1047,7 @@ const HomePage = ({
           </h2>
           <p
             style={{
-              color: "#64748B",
+              color: dm ? "#94A3B8" : "#64748B",
               fontSize: 15,
               marginBottom: 32,
               lineHeight: 1.6,
@@ -1117,7 +1117,7 @@ const HomePage = ({
       <section
         style={{
           padding: "32px 24px",
-          background: "#fff",
+          background: dm ? "#1E293B" : "#fff",
           borderTop: "1px solid #F1F5F9",
         }}
       >
@@ -1143,7 +1143,7 @@ const HomePage = ({
             <div
               key={b}
               style={{
-                color: "#64748B",
+                color: dm ? "#94A3B8" : "#64748B",
                 fontSize: 14,
                 fontWeight: 600,
                 display: "flex",
@@ -1205,7 +1205,7 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) =
           fontFamily: "'Syne', sans-serif",
           fontSize: 36,
           fontWeight: 800,
-          color: "#0F172A",
+          color: dm ? "#F1F5F9" : "#0F172A",
           marginBottom: 8,
         }}
       >
@@ -1240,7 +1240,7 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) =
               width: "100%",
               padding: "12px 14px 12px 40px",
               borderRadius: 10,
-              border: "1.5px solid #E2E8F0",
+              border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
               fontSize: 14,
               outline: "none",
               boxSizing: "border-box",
@@ -1253,9 +1253,9 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) =
           style={{
             padding: "12px 16px",
             borderRadius: 10,
-            border: "1.5px solid #E2E8F0",
+            border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
             fontSize: 14,
-            background: "#fff",
+            background: dm ? "#1E293B" : "#fff",
             cursor: "pointer",
             outline: "none",
           }}
@@ -1304,7 +1304,7 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) =
         <span
           style={{
             fontSize: 13,
-            color: "#64748B",
+            color: dm ? "#94A3B8" : "#64748B",
             fontWeight: 600,
             minWidth: 70,
           }}
@@ -1320,7 +1320,7 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) =
           onChange={(e) => setPriceRange(+e.target.value)}
           style={{ flex: 1, maxWidth: 300, accentColor: "#3B82F6" }}
         />
-        <span style={{ fontWeight: 700, color: "#0F172A", minWidth: 60 }}>
+        <span style={{ fontWeight: 700, color: dm ? "#F1F5F9" : "#0F172A", minWidth: 60 }}>
           {fmt(priceRange)}
         </span>
       </div>
@@ -1459,7 +1459,7 @@ const ProductPage = ({
               fontFamily: "'Syne', sans-serif",
               fontSize: 30,
               fontWeight: 800,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
               marginBottom: 12,
               lineHeight: 1.2,
             }}
@@ -1485,7 +1485,7 @@ const ProductPage = ({
                 fontFamily: "'Syne', sans-serif",
                 fontSize: 36,
                 fontWeight: 800,
-                color: "#0F172A",
+                color: dm ? "#F1F5F9" : "#0F172A",
               }}
             >
               {fmt(product.price)}
@@ -1514,7 +1514,7 @@ const ProductPage = ({
           </div>
           <div
             style={{
-              background: "#FFF7ED",
+              background: dm ? "#1E293B" : "#FFF7ED",
               border: "1px solid #FED7AA",
               borderRadius: 10,
               padding: "10px 14px",
@@ -1527,7 +1527,7 @@ const ProductPage = ({
           </div>
           <p
             style={{
-              color: "#475569",
+              color: dm ? "#94A3B8" : "#475569",
               fontSize: 15,
               lineHeight: 1.7,
               marginBottom: 28,
@@ -1549,7 +1549,7 @@ const ProductPage = ({
               style={{
                 display: "flex",
                 alignItems: "center",
-                border: "1.5px solid #E2E8F0",
+                border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
                 borderRadius: 10,
                 overflow: "hidden",
               }}
@@ -1617,8 +1617,8 @@ const ProductPage = ({
               style={{
                 padding: "15px 20px",
                 borderRadius: 12,
-                border: "1.5px solid #E2E8F0",
-                background: "#fff",
+                border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
+                background: dm ? "#1E293B" : "#fff",
                 fontSize: 20,
                 cursor: "pointer",
               }}
@@ -1634,7 +1634,7 @@ const ProductPage = ({
               "🛡️ Secure payment — UPI, cards, COD",
               "✅ Quality guaranteed by Cartaro",
             ].map((p) => (
-              <div key={p} style={{ color: "#475569", fontSize: 14 }}>
+              <div key={p} style={{ color: dm ? "#94A3B8" : "#475569", fontSize: 14 }}>
                 {p}
               </div>
             ))}
@@ -1676,7 +1676,7 @@ const ProductPage = ({
         <div
           style={{
             padding: "28px 0",
-            color: "#475569",
+            color: dm ? "#94A3B8" : "#475569",
             fontSize: 15,
             lineHeight: 1.8,
           }}
@@ -1706,7 +1706,7 @@ const ProductPage = ({
                       fontFamily: "'Syne', sans-serif",
                       fontSize: 56,
                       fontWeight: 800,
-                      color: "#0F172A",
+                      color: dm ? "#F1F5F9" : "#0F172A",
                     }}
                   >
                     {product.rating}
@@ -1732,7 +1732,7 @@ const ProductPage = ({
                     style={{
                       flex: 1,
                       height: 8,
-                      background: "#F1F5F9",
+                      background: dm ? "#334155" : "#F1F5F9",
                       borderRadius: 4,
                       overflow: "hidden",
                     }}
@@ -1775,7 +1775,7 @@ const ProductPage = ({
               fontFamily: "'Syne', sans-serif",
               fontWeight: 800,
               fontSize: 24,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
               marginBottom: 28,
             }}
           >
@@ -1811,14 +1811,14 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage, dm
     <div style={{ textAlign: "center", padding: "100px 24px" }}>
       <div style={{ fontSize: 72, marginBottom: 24 }}>🤍</div>
       <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 28, marginBottom: 12 }}>Your wishlist is empty</h2>
-      <p style={{ color: "#64748B", marginBottom: 32 }}>Save items you love and find them here.</p>
+      <p style={{ color: dm ? "#94A3B8" : "#64748B", marginBottom: 32 }}>Save items you love and find them here.</p>
       <button onClick={() => setPage("shop")} style={{ background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 12, padding: "14px 32px", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>Browse Products</button>
     </div>
   );
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px" }}>
       <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8 }}>My Wishlist</h1>
-      <p style={{ color: "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
+      <p style={{ color: dm ? "#94A3B8" : "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 24 }}>
         {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} dm={dm} onView={() => setPage("shop")} />)}
       </div>
@@ -1873,7 +1873,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
             fontFamily: "'Syne', sans-serif",
             fontSize: 28,
             fontWeight: 800,
-            color: "#0F172A",
+            color: dm ? "#F1F5F9" : "#0F172A",
             marginBottom: 12,
           }}
         >
@@ -1927,10 +1927,10 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
             <div
               key={item.id}
               style={{
-                background: "#fff",
+                background: dm ? "#1E293B" : "#fff",
                 borderRadius: 16,
                 padding: "20px",
-                border: "1px solid #E2E8F0",
+                border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
                 display: "flex",
                 gap: 20,
                 alignItems: "center",
@@ -1957,7 +1957,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
                     fontFamily: "'Syne', sans-serif",
                     fontWeight: 700,
                     fontSize: 15,
-                    color: "#0F172A",
+                    color: dm ? "#F1F5F9" : "#0F172A",
                     marginBottom: 4,
                   }}
                 >
@@ -1969,7 +1969,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
                   {item.category}
                 </div>
                 <div
-                  style={{ fontWeight: 800, fontSize: 17, color: "#0F172A" }}
+                  style={{ fontWeight: 800, fontSize: 17, color: dm ? "#F1F5F9" : "#0F172A" }}
                 >
                   {fmt(item.price)}
                 </div>
@@ -1986,7 +1986,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    border: "1.5px solid #E2E8F0",
+                    border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
                     borderRadius: 8,
                     overflow: "hidden",
                   }}
@@ -2043,10 +2043,10 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
         {/* Summary */}
         <div
           style={{
-            background: "#FAFBFF",
+            background: dm ? "#0F172A" : "#FAFBFF",
             borderRadius: 16,
             padding: "24px",
-            border: "1px solid #E2E8F0",
+            border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
             position: "sticky",
             top: 90,
           }}
@@ -2081,7 +2081,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
               label="Shipping"
               value={shipping === 0 ? "FREE 🎉" : fmt(shipping)}
             />
-            <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 12 }}>
+            <div style={{ borderTop: dm ? "1px solid #334155" : "1px solid #E2E8F0", paddingTop: 12 }}>
               <Row label="Total" value={fmt(total)} bold />
             </div>
           </div>
@@ -2096,7 +2096,7 @@ const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) =
                   flex: 1,
                   padding: "10px 14px",
                   borderRadius: 8,
-                  border: "1.5px solid #E2E8F0",
+                  border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
                   fontSize: 13,
                   outline: "none",
                 }}
@@ -2169,7 +2169,7 @@ const Row = ({ label, value, bold, green }) => (
       alignItems: "center",
     }}
   >
-    <span style={{ color: "#64748B", fontSize: 14 }}>{label}</span>
+    <span style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 14 }}>{label}</span>
     <span
       style={{
         fontWeight: bold ? 800 : 600,
@@ -2268,18 +2268,18 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
             fontFamily: "'Syne', sans-serif",
             fontSize: 32,
             fontWeight: 800,
-            color: "#0F172A",
+            color: dm ? "#F1F5F9" : "#0F172A",
             marginBottom: 12,
           }}
         >
           Order Placed!
         </h1>
-        <p style={{ color: "#64748B", fontSize: 16, marginBottom: 8 }}>
+        <p style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 16, marginBottom: 8 }}>
           Thank you, <strong>{form.name}</strong>! Your order is confirmed.
         </p>
         <div
           style={{
-            background: "#EFF6FF",
+            background: dm ? "#1E293B" : "#EFF6FF",
             border: "1px solid #BFDBFE",
             borderRadius: 12,
             padding: "16px",
@@ -2294,13 +2294,13 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               fontFamily: "'Syne', sans-serif",
               fontWeight: 800,
               fontSize: 24,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
             }}
           >
             #{orderId}
           </div>
         </div>
-        <p style={{ color: "#64748B", fontSize: 14, marginBottom: 32 }}>
+        <p style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 14, marginBottom: 32 }}>
           A confirmation has been sent to <strong>{form.email}</strong>.
           Expected delivery in 2–4 business days.
         </p>
@@ -2325,8 +2325,8 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
             style={{
               padding: "13px 28px",
               borderRadius: 12,
-              background: "#F1F5F9",
-              color: "#0F172A",
+              background: dm ? "#334155" : "#F1F5F9",
+              color: dm ? "#F1F5F9" : "#0F172A",
               fontWeight: 700,
               fontSize: 15,
               border: "none",
@@ -2403,7 +2403,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               fontFamily: "'Syne', sans-serif",
               fontWeight: 700,
               marginBottom: 20,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
             }}
           >
             Shipping Details
@@ -2429,7 +2429,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               fontFamily: "'Syne', sans-serif",
               fontWeight: 700,
               marginBottom: 16,
-              color: "#0F172A",
+              color: dm ? "#F1F5F9" : "#0F172A",
             }}
           >
             Payment Method
@@ -2475,10 +2475,10 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
         {/* Order Summary */}
         <div
           style={{
-            background: "#FAFBFF",
+            background: dm ? "#0F172A" : "#FAFBFF",
             borderRadius: 16,
             padding: "24px",
-            border: "1px solid #E2E8F0",
+            border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
             position: "sticky",
             top: 90,
           }}
@@ -2506,7 +2506,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               <span style={{ fontSize: 24 }}>{item.img}</span>
               <div style={{ flex: 1 }}>
                 <div
-                  style={{ fontSize: 13, fontWeight: 600, color: "#0F172A" }}
+                  style={{ fontSize: 13, fontWeight: 600, color: dm ? "#F1F5F9" : "#0F172A" }}
                 >
                   {item.name}
                 </div>
@@ -2521,7 +2521,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
           ))}
           <div
             style={{
-              borderTop: "1px solid #E2E8F0",
+              borderTop: dm ? "1px solid #334155" : "1px solid #E2E8F0",
               paddingTop: 14,
               marginTop: 4,
               display: "flex",
@@ -2541,7 +2541,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
               label="Shipping"
               value={shipping === 0 ? "FREE" : fmt(shipping)}
             />
-            <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 10 }}>
+            <div style={{ borderTop: dm ? "1px solid #334155" : "1px solid #E2E8F0", paddingTop: 10 }}>
               <Row label="Total" value={fmt(total)} bold />
             </div>
           </div>
@@ -2624,7 +2624,7 @@ const TrackingPage = ({ dm }) => {
           fontSize: 36,
           fontWeight: 800,
           marginBottom: 8,
-          color: "#0F172A",
+          color: dm ? "#F1F5F9" : "#0F172A",
         }}
       >
         Track Your Order
@@ -2641,7 +2641,7 @@ const TrackingPage = ({ dm }) => {
             flex: 1,
             padding: "13px 16px",
             borderRadius: 12,
-            border: "1.5px solid #E2E8F0",
+            border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
             fontSize: 15,
             outline: "none",
           }}
@@ -2667,7 +2667,7 @@ const TrackingPage = ({ dm }) => {
       {result === "not_found" && (
         <div
           style={{
-            background: "#FEF2F2",
+            background: dm ? "#1E293B" : "#FEF2F2",
             border: "1px solid #FECACA",
             borderRadius: 12,
             padding: "20px",
@@ -2681,9 +2681,9 @@ const TrackingPage = ({ dm }) => {
       {result && result !== "not_found" && (
         <div
           style={{
-            background: "#fff",
+            background: dm ? "#1E293B" : "#fff",
             borderRadius: 20,
-            border: "1px solid #E2E8F0",
+            border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
             overflow: "hidden",
             boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
           }}
@@ -2735,7 +2735,7 @@ const TrackingPage = ({ dm }) => {
                   >
                     {k}
                   </div>
-                  <div style={{ fontWeight: 700, color: "#0F172A" }}>{v}</div>
+                  <div style={{ fontWeight: 700, color: dm ? "#F1F5F9" : "#0F172A" }}>{v}</div>
                 </div>
               ))}
             </div>
@@ -2816,7 +2816,7 @@ const TrackingPage = ({ dm }) => {
             <div
               style={{
                 marginTop: 28,
-                background: "#F0FDF4",
+                background: dm ? "#1E293B" : "#F0FDF4",
                 border: "1px solid #BBF7D0",
                 borderRadius: 10,
                 padding: "12px 16px",
@@ -2828,7 +2828,7 @@ const TrackingPage = ({ dm }) => {
               📍 Current Status: {result.status}
             </div>
             {result.status === "cancelled" && (
-              <div style={{ marginTop: 16, background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 10, padding: "12px 16px", color: "#DC2626", fontWeight: 700, fontSize: 14 }}>
+              <div style={{ marginTop: 16, background: dm ? "#1E293B" : "#FEF2F2", border: "1px solid #FECACA", borderRadius: 10, padding: "12px 16px", color: "#DC2626", fontWeight: 700, fontSize: 14 }}>
                 ❌ This order has been cancelled.
               </div>
             )}
@@ -2836,19 +2836,19 @@ const TrackingPage = ({ dm }) => {
               <button
                 onClick={() => setShowCancelModal(true)}
                 disabled={cancelling}
-                style={{ marginTop: 20, width: "100%", padding: "13px", background: "#FEF2F2", color: "#DC2626", border: "1.5px solid #FECACA", borderRadius: 12, fontWeight: 700, fontSize: 15, cursor: "pointer" }}
+                style={{ marginTop: 20, width: "100%", padding: "13px", background: dm ? "#1E293B" : "#FEF2F2", color: "#DC2626", border: "1.5px solid #FECACA", borderRadius: 12, fontWeight: 700, fontSize: 15, cursor: "pointer" }}
               >
                 {cancelling ? "Cancelling..." : "❌ Cancel Order"}
               </button>
             )}
             {showCancelModal && (
               <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
-                <div style={{ background: "#fff", borderRadius: 20, padding: 32, maxWidth: 400, width: "100%", textAlign: "center", boxShadow: "0 20px 60px rgba(0,0,0,0.2)" }}>
+                <div style={{ background: dm ? "#1E293B" : "#fff", borderRadius: 20, padding: 32, maxWidth: 400, width: "100%", textAlign: "center", boxShadow: "0 20px 60px rgba(0,0,0,0.2)" }}>
                   <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
                   <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 22, fontWeight: 800, marginBottom: 8 }}>Cancel Order?</h2>
-                  <p style={{ color: "#64748B", marginBottom: 24, fontSize: 14 }}>Are you sure you want to cancel order <strong>#{result.orderId}</strong>? This cannot be undone.</p>
+                  <p style={{ color: dm ? "#94A3B8" : "#64748B", marginBottom: 24, fontSize: 14 }}>Are you sure you want to cancel order <strong>#{result.orderId}</strong>? This cannot be undone.</p>
                   <div style={{ display: "flex", gap: 12 }}>
-                    <button onClick={() => setShowCancelModal(false)} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "1.5px solid #E2E8F0", background: "#F8FAFC", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
+                    <button onClick={() => setShowCancelModal(false)} style={{ flex: 1, padding: "12px", borderRadius: 12, border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0", background: dm ? "#0F172A" : "#F8FAFC", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
                       Keep Order
                     </button>
                     <button onClick={cancelOrder} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "none", background: "#DC2626", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>
@@ -2874,7 +2874,7 @@ const AboutPage = ({ dm }) => (
           fontFamily: "'Syne', sans-serif",
           fontSize: "clamp(32px,5vw,52px)",
           fontWeight: 800,
-          color: "#0F172A",
+          color: dm ? "#F1F5F9" : "#0F172A",
           marginBottom: 16,
           letterSpacing: -1,
         }}
@@ -2885,7 +2885,7 @@ const AboutPage = ({ dm }) => (
       </h1>
       <p
         style={{
-          color: "#64748B",
+          color: dm ? "#94A3B8" : "#64748B",
           fontSize: 17,
           lineHeight: 1.8,
           maxWidth: 620,
@@ -2930,7 +2930,7 @@ const AboutPage = ({ dm }) => (
           >
             {num}
           </div>
-          <div style={{ color: "#64748B", fontSize: 14, marginTop: 4 }}>
+          <div style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 14, marginTop: 4 }}>
             {lab}
           </div>
         </div>
@@ -2950,7 +2950,7 @@ const AboutPage = ({ dm }) => (
             fontFamily: "'Syne', sans-serif",
             fontWeight: 800,
             fontSize: 26,
-            color: "#0F172A",
+            color: dm ? "#F1F5F9" : "#0F172A",
             marginBottom: 16,
           }}
         >
@@ -2958,7 +2958,7 @@ const AboutPage = ({ dm }) => (
         </h2>
         <p
           style={{
-            color: "#64748B",
+            color: dm ? "#94A3B8" : "#64748B",
             fontSize: 15,
             lineHeight: 1.8,
             marginBottom: 16,
@@ -2970,7 +2970,7 @@ const AboutPage = ({ dm }) => (
           made for India — for the everyday buyer who wants great products
           without the premium markup.
         </p>
-        <p style={{ color: "#64748B", fontSize: 15, lineHeight: 1.8 }}>
+        <p style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 15, lineHeight: 1.8 }}>
           Today, we ship to 19,000+ pincodes across India, with a team of 25
           passionate people committed to making your shopping experience
           seamless, affordable, and delightful.
@@ -2982,7 +2982,7 @@ const AboutPage = ({ dm }) => (
             fontFamily: "'Syne', sans-serif",
             fontWeight: 800,
             fontSize: 26,
-            color: "#0F172A",
+            color: dm ? "#F1F5F9" : "#0F172A",
             marginBottom: 16,
           }}
         >
@@ -3007,7 +3007,7 @@ const AboutPage = ({ dm }) => (
             <span style={{ color: "#3B82F6", fontWeight: 800, marginTop: 1 }}>
               →
             </span>
-            <span style={{ color: "#475569", fontSize: 15, lineHeight: 1.5 }}>
+            <span style={{ color: dm ? "#94A3B8" : "#475569", fontSize: 15, lineHeight: 1.5 }}>
               {v}
             </span>
           </div>
@@ -3040,7 +3040,7 @@ const ContactPage = ({ dm }) => {
             fontFamily: "'Syne', sans-serif",
             fontSize: 42,
             fontWeight: 800,
-            color: "#0F172A",
+            color: dm ? "#F1F5F9" : "#0F172A",
             marginBottom: 12,
           }}
         >
@@ -3083,7 +3083,7 @@ const ContactPage = ({ dm }) => {
                   width: 48,
                   height: 48,
                   borderRadius: 12,
-                  background: "#EFF6FF",
+                  background: dm ? "#1E293B" : "#EFF6FF",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -3098,13 +3098,13 @@ const ContactPage = ({ dm }) => {
                   style={{
                     fontWeight: 700,
                     fontSize: 15,
-                    color: "#0F172A",
+                    color: dm ? "#F1F5F9" : "#0F172A",
                     marginBottom: 2,
                   }}
                 >
                   {c.title}
                 </div>
-                <div style={{ color: "#64748B", fontSize: 14 }}>{c.val}</div>
+                <div style={{ color: dm ? "#94A3B8" : "#64748B", fontSize: 14 }}>{c.val}</div>
               </div>
             </div>
           ))}
@@ -3114,7 +3114,7 @@ const ContactPage = ({ dm }) => {
             style={{
               textAlign: "center",
               padding: "40px",
-              background: "#F0FDF4",
+              background: dm ? "#1E293B" : "#F0FDF4",
               borderRadius: 16,
             }}
           >
@@ -3123,23 +3123,23 @@ const ContactPage = ({ dm }) => {
               style={{
                 fontFamily: "'Syne', sans-serif",
                 fontWeight: 800,
-                color: "#0F172A",
+                color: dm ? "#F1F5F9" : "#0F172A",
                 marginBottom: 8,
               }}
             >
               Message Sent!
             </h3>
-            <p style={{ color: "#64748B" }}>
+            <p style={{ color: dm ? "#94A3B8" : "#64748B" }}>
               We'll get back to you within 24 hours.
             </p>
           </div>
         ) : (
           <div
             style={{
-              background: "#FAFBFF",
+              background: dm ? "#0F172A" : "#FAFBFF",
               borderRadius: 20,
               padding: "32px",
-              border: "1px solid #E2E8F0",
+              border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -3159,7 +3159,7 @@ const ContactPage = ({ dm }) => {
                   style={{
                     padding: "12px 14px",
                     borderRadius: 10,
-                    border: "1.5px solid #E2E8F0",
+                    border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
                     fontSize: 14,
                     outline: "none",
                   }}
@@ -3175,7 +3175,7 @@ const ContactPage = ({ dm }) => {
                 style={{
                   padding: "12px 14px",
                   borderRadius: 10,
-                  border: "1.5px solid #E2E8F0",
+                  border: dm ? "1.5px solid #334155" : "1.5px solid #E2E8F0",
                   fontSize: 14,
                   resize: "vertical",
                   outline: "none",
@@ -3410,7 +3410,7 @@ export default function App() {
           zIndex: 100,
           background: "rgba(255,255,255,0.95)",
           backdropFilter: "blur(12px)",
-          borderBottom: "1px solid #F1F5F9",
+          borderBottom: dm ? "1px solid #334155" : "1px solid #F1F5F9",
           padding: "0 24px",
         }}
       >
@@ -3483,7 +3483,7 @@ export default function App() {
                   cursor: "pointer",
                   padding: "8px",
                   borderRadius: 8,
-                  color: "#475569",
+                  color: dm ? "#94A3B8" : "#475569",
                 }}
               >
                 🔍
@@ -3496,10 +3496,10 @@ export default function App() {
                     left: isMobile ? 8 : "auto",
                     top: 64,
                     width: isMobile ? "auto" : 340,
-                    background: "#fff",
+                    background: dm ? "#1E293B" : "#fff",
                     borderRadius: 14,
                     boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
-                    border: "1px solid #E2E8F0",
+                    border: dm ? "1px solid #334155" : "1px solid #E2E8F0",
                     zIndex: 9999,
                     overflow: "hidden",
                     maxHeight: "70vh",
@@ -3518,7 +3518,7 @@ export default function App() {
                       border: "none",
                       fontSize: 14,
                       outline: "none",
-                      borderBottom: "1px solid #F1F5F9",
+                      borderBottom: dm ? "1px solid #334155" : "1px solid #F1F5F9",
                       boxSizing: "border-box",
                     }}
                   />
@@ -3550,7 +3550,7 @@ export default function App() {
                           style={{
                             fontWeight: 600,
                             fontSize: 13,
-                            color: "#0F172A",
+                            color: dm ? "#F1F5F9" : "#0F172A",
                           }}
                         >
                           {p.name}
@@ -3582,7 +3582,7 @@ export default function App() {
                 cursor: "pointer",
                 padding: "8px",
                 borderRadius: 8,
-                color: "#475569",
+                color: dm ? "#94A3B8" : "#475569",
                 position: "relative",
               }}
             >
@@ -3763,7 +3763,7 @@ export default function App() {
               <Logo dark />
               <p
                 style={{
-                  color: "#64748B",
+                  color: dm ? "#94A3B8" : "#64748B",
                   fontSize: 14,
                   lineHeight: 1.7,
                   marginTop: 14,
@@ -3811,7 +3811,7 @@ export default function App() {
                   <div
                     key={l}
                     style={{
-                      color: "#64748B",
+                      color: dm ? "#94A3B8" : "#64748B",
                       fontSize: 14,
                       marginBottom: 10,
                       cursor: "pointer",
@@ -3837,7 +3837,7 @@ export default function App() {
                 <div
                   key={c}
                   style={{
-                    color: "#64748B",
+                    color: dm ? "#94A3B8" : "#64748B",
                     fontSize: 14,
                     marginBottom: 10,
                     cursor: "pointer",
@@ -3868,7 +3868,7 @@ export default function App() {
                 <div
                   key={l}
                   style={{
-                    color: "#64748B",
+                    color: dm ? "#94A3B8" : "#64748B",
                     fontSize: 14,
                     marginBottom: 10,
                     cursor: "pointer",
@@ -3891,7 +3891,7 @@ export default function App() {
               gap: 12,
             }}
           >
-            <div style={{ color: "#475569", fontSize: 13 }}>
+            <div style={{ color: dm ? "#94A3B8" : "#475569", fontSize: 13 }}>
               <span onClick={handleAdminClick} style={{ cursor: "default" }}>© 2026 Cartaro. All rights reserved. Made with ❤️ in India.</span>
             </div>
             <div style={{ display: "flex", gap: 12 }}>
