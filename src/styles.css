@@ -418,3 +418,100 @@ input:checked + .slider:before {
   background: #303136;
   box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
 }
+
+/* ── Full Dark Mode ── */
+body.dark-mode {
+  background: #0F172A !important;
+}
+
+/* Main wrapper */
+body.dark-mode > div,
+body.dark-mode #root,
+body.dark-mode #root > div {
+  background: #0F172A !important;
+}
+
+/* All white backgrounds → dark */
+body.dark-mode [style*="background: \"#fff\""],
+body.dark-mode [style*="background: #fff"],
+body.dark-mode [style*="background-color: #fff"],
+body.dark-mode [style*="background-color: white"] {
+  background: #1E293B !important;
+}
+
+/* Product cards, order cards, any white card */
+body.dark-mode .dark-card {
+  background: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+/* Text colors */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
+body.dark-mode p, body.dark-mode span, body.dark-mode div,
+body.dark-mode label, body.dark-mode button {
+  color: inherit;
+}
+
+/* Footer stays dark (already dark) */
+body.dark-mode footer {
+  background: #020617 !important;
+}
+
+/* ── Comprehensive Dark Mode ── */
+body.dark-mode { background: #0F172A !important; color: #F1F5F9 !important; }
+
+/* Cards and white boxes */
+body.dark-mode div[style*="background: #fff"],
+body.dark-mode div[style*="background: \"#fff\""],
+body.dark-mode div[style*="background: white"],
+body.dark-mode div[style*="background-color: #fff"] { background: #1E293B !important; color: #F1F5F9 !important; }
+
+/* Light gray backgrounds */
+body.dark-mode div[style*="background: #F"],
+body.dark-mode div[style*="background: #E"],
+body.dark-mode section[style*="background: #F"] { background: #1E293B !important; }
+
+/* Inputs */
+body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
+  background: #1E293B !important;
+  color: #F1F5F9 !important;
+  border-color: #334155 !important;
+}
+
+/* Text */
+body.dark-mode p, body.dark-mode span, body.dark-mode h1,
+body.dark-mode h2, body.dark-mode h3, body.dark-mode h4,
+body.dark-mode label { color: #F1F5F9 !important; }
+
+/* Muted text — keep it muted */
+body.dark-mode [style*="color: #64748B"],
+body.dark-mode [style*="color: #94A3B8"],
+body.dark-mode [style*="color: #475569"] { color: #94A3B8 !important; }
+
+/* Borders */
+body.dark-mode [style*="border: 1px solid #E"],
+body.dark-mode [style*="border: 1.5px solid #E"],
+body.dark-mode [style*="borderBottom: \"1px solid #F"],
+body.dark-mode [style*="border-bottom: 1px solid #F"] { border-color: #334155 !important; }
+
+/* Keep blue/green/red accent colors */
+body.dark-mode [style*="color: #2563EB"],
+body.dark-mode [style*="color: #3B82F6"],
+body.dark-mode [style*="color: #10B981"],
+body.dark-mode [style*="color: #EF4444"] { color: inherit !important; }
+
+/* Nav */
+body.dark-mode nav { background: rgba(15,23,42,0.97) !important; border-bottom-color: #334155 !important; }
+
+/* Hero/gradient sections */
+body.dark-mode [style*="linear-gradient(135deg,#EFF6FF"],
+body.dark-mode [style*="linear-gradient(135deg, #EFF6FF"] { background: #1E293B !important; }
+
+/* Cart drawer / sidebar */
+body.dark-mode [style*="background: #FAFBFF"],
+body.dark-mode [style*="background: #F8FAFC"],
+body.dark-mode [style*="background: #F1F5F9"] { background: #1E293B !important; }
+
+/* Scrollbar */
+body.dark-mode ::-webkit-scrollbar-track { background: #1E293B !important; }
+body.dark-mode ::-webkit-scrollbar-thumb { background: #475569 !important; }

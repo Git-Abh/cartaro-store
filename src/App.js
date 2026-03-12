@@ -3325,12 +3325,22 @@ export default function App() {
         ).slice(0, 5)
       : [];
 
+  const dm = darkMode;
+  const dmBg = dm ? "#0F172A" : "#fff";
+  const dmBg2 = dm ? "#1E293B" : "#fff";
+  const dmBg3 = dm ? "#334155" : "#F1F5F9";
+  const dmText = dm ? "#F1F5F9" : "#0F172A";
+  const dmText2 = dm ? "#94A3B8" : "#64748B";
+  const dmBorder = dm ? "#334155" : "#E2E8F0";
+  const dmCard = dm ? "#1E293B" : "#fff";
   return (
     <div
       style={{
-        fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-        background: "#FAFBFF",
+        background: dm ? "#0F172A" : "#FAFBFF",
         minHeight: "100vh",
+        fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
+        color: dm ? "#F1F5F9" : "#0F172A",
+        transition: "background 0.3s, color 0.3s",
       }}
     >
       <style>{`
