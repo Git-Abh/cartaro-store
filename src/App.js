@@ -303,7 +303,7 @@ const ProductCard = ({
   onAddToCart,
   onWishlist,
   wishlist,
-  dm,
+  dm = false,
   onView,
 }) => {
   const [hovered, setHovered] = useState(false);
