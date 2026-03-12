@@ -397,16 +397,17 @@ function AnalyticsTab({ orders, products }) {
     const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
     return key === month && o.status !== "cancelled";
   });
+  const deliveredOrders = monthOrders.filter(o => o.status === "delivered");
 
-  const revenue = monthOrders.reduce((s, o) => s + (o.total || 0), 0);
+  const revenue = deliveredOrders.reduce((s, o) => s + (o.total || 0), 0);
 
-  const productCosts = monthOrders.reduce((s, o) =>
+  const productCosts = deliveredOrders.reduce((s, o) =>
     s + (o.items || []).reduce((ps, item) => {
       const p = products.find(p => p.name === item.name);
       return ps + ((Number(p?.costPrice) || 0) * item.qty);
     }, 0), 0);
 
-  const deliveryCosts = monthOrders.reduce((s, o) =>
+  const deliveryCosts = deliveredOrders.reduce((s, o) =>
     s + (o.items || []).reduce((ps, item) => {
       const p = products.find(p => p.name === item.name);
       return ps + ((Number(p?.deliveryCost) || 0) * item.qty);
@@ -439,7 +440,8 @@ function AnalyticsTab({ orders, products }) {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 16, marginBottom: 32 }}>
         {[
-          ["💰 Revenue", fmt(revenue), "#10B981", "#F0FDF4"],
+          ["💰 Delivered Revenue", fmt(revenue), "#10B981", "#F0FDF4"],
+          ["⏳ Pending Revenue", fmt(monthOrders.filter(o=>o.status==="pending").reduce((s,o)=>s+(o.total||0),0)), "#F59E0B", "#FEF3C7"],
           ["🛒 Product Costs", fmt(productCosts), "#F59E0B", "#FEF3C7"],
           ["🚚 Delivery Costs", fmt(deliveryCosts), "#8B5CF6", "#F5F3FF"],
           ["💳 Gateway Fees", fmt(gatewayFees), "#3B82F6", "#EFF6FF"],
