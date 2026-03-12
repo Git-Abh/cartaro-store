@@ -1396,14 +1396,14 @@ const ProductPage = ({
         }}
       >
         <span
-          onClick={() => navigateTo("home")}
+          onClick={() => setPage("home")}
           style={{ cursor: "pointer", color: "#3B82F6" }}
         >
           Home
         </span>{" "}
         /
         <span
-          onClick={() => navigateTo("shop")}
+          onClick={() => setPage("shop")}
           style={{ cursor: "pointer", color: "#3B82F6" }}
         >
           Shop
@@ -1809,7 +1809,7 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) 
       <div style={{ fontSize: 72, marginBottom: 24 }}>🤍</div>
       <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 28, marginBottom: 12 }}>Your wishlist is empty</h2>
       <p style={{ color: "#64748B", marginBottom: 32 }}>Save items you love and find them here.</p>
-      <button onClick={() => navigateTo("shop")} style={{ background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 12, padding: "14px 32px", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>Browse Products</button>
+      <button onClick={() => setPage("shop")} style={{ background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 12, padding: "14px 32px", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>Browse Products</button>
     </div>
   );
   return (
@@ -1817,7 +1817,7 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) 
       <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8 }}>My Wishlist</h1>
       <p style={{ color: "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 24 }}>
-        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} onView={() => navigateTo("shop")} />)}
+        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} onView={() => setPage("shop")} />)}
       </div>
     </div>
   );
