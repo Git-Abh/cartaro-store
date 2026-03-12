@@ -3205,6 +3205,12 @@ const ContactPage = () => {
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("cartaro_dark") === "true");
+  useEffect(() => {
+    if (darkMode) document.body.classList.add("dark-mode");
+    else document.body.classList.remove("dark-mode");
+    localStorage.setItem("cartaro_dark", darkMode);
+  }, [darkMode]);
   const [page, setPage] = useState(() => {
     const h = window.location.hash.replace("#", "");
     return h || "home";
@@ -3362,6 +3368,7 @@ export default function App() {
 
       {/* NAVBAR */}
       <nav
+        className="dark-nav"
         style={{
           position: "sticky",
           top: 0,
@@ -3422,6 +3429,11 @@ export default function App() {
               marginLeft: 24,
             }}
           >
+            {/* Dark mode toggle */}
+            <label className="switch" style={{ marginRight: 8 }}>
+              <input type="checkbox" checked={darkMode} onChange={e => setDarkMode(e.target.checked)} />
+              <span className="slider"></span>
+            </label>
             {/* Search */}
             <div style={{ position: "relative" }}>
               <button
