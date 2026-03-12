@@ -303,6 +303,7 @@ const ProductCard = ({
   onAddToCart,
   onWishlist,
   wishlist,
+  dm,
   onView,
 }) => {
   const [hovered, setHovered] = useState(false);
@@ -313,7 +314,7 @@ const ProductCard = ({
       onMouseLeave={() => setHovered(false)}
       onClick={() => onView(product)}
       style={{
-        background: "#fff",
+        background: dm ? "#1E293B" : "#fff",
         borderRadius: 16,
         overflow: "hidden",
         boxShadow: hovered
@@ -328,7 +329,7 @@ const ProductCard = ({
       {/* Image area */}
       <div
         style={{
-          background: "linear-gradient(135deg,#EFF6FF,#F0F9FF)",
+          background: dm ? "#0F172A" : "linear-gradient(135deg,#EFF6FF,#F0F9FF)",
           padding: "28px 20px 20px",
           position: "relative",
           textAlign: "center",
@@ -381,7 +382,7 @@ const ProductCard = ({
             fontFamily: "'Syne', sans-serif",
             fontWeight: 700,
             fontSize: 15,
-            color: "#0F172A",
+            color: dm ? "#F1F5F9" : "#0F172A",
             marginBottom: 6,
             lineHeight: 1.3,
           }}
@@ -498,6 +499,7 @@ const HomePage = ({
   wishlist,
   onView,
   setPage,
+  dm,
 }) => {
   const [faqOpen, setFaqOpen] = useState(null);
   const [email, setEmail] = useState("");
@@ -1176,7 +1178,7 @@ const SectionHeader = ({ title, sub, dark }) => (
   </div>
 );
 
-const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView }) => {
+const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) => {
   const [cat, setCat] = useState("All");
   const [sort, setSort] = useState("default");
   const [search, setSearch] = useState("");
@@ -1362,6 +1364,7 @@ const ProductPage = ({
   wishlist,
   products,
   setPage,
+  dm,
 }) => {
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState("desc");
@@ -1802,7 +1805,7 @@ const ProductPage = ({
   );
 };
 
-const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) => {
+const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage, dm }) => {
   const wishedProducts = products.filter(p => wishlist.includes(p.id));
   if (wishedProducts.length === 0) return (
     <div style={{ textAlign: "center", padding: "100px 24px" }}>
@@ -1817,13 +1820,13 @@ const WishlistPage = ({ wishlist, products, onAddToCart, onWishlist, setPage }) 
       <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 32, marginBottom: 8 }}>My Wishlist</h1>
       <p style={{ color: "#64748B", marginBottom: 32 }}>{wishedProducts.length} saved items</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 24 }}>
-        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} onView={() => setPage("shop")} />)}
+        {wishedProducts.map(p => <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onWishlist={onWishlist} wishlist={wishlist} dm={dm} onView={() => setPage("shop")} />)}
       </div>
     </div>
   );
 };
 
-const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount }) => {
+const CartPage = ({ cart, setCart, setPage, setCoupon, coupon, discount, dm }) => {
   const [couponInput, setCouponInput] = useState("");
   const [couponMsg, setCouponMsg] = useState(null);
   const COUPONS = { WELCOME10: 10, CARTARO15: 15, SAVE20: 20 };
@@ -2179,7 +2182,7 @@ const Row = ({ label, value, bold, green }) => (
   </div>
 );
 
-const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
+const CheckoutPage = ({ cart, setCart, setPage, discount, dm }) => {
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -2575,7 +2578,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
   );
 };
 
-const TrackingPage = () => {
+const TrackingPage = ({ dm }) => {
   const [orderId, setOrderId] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -2614,7 +2617,7 @@ const TrackingPage = () => {
   };
 
   return (
-    <div style={{ maxWidth: 680, margin: "0 auto", padding: "60px 24px" }}>
+    <div style={{ maxWidth: 680, margin: "0 auto", padding: "60px 24px", background: dm ? "#0F172A" : "transparent", minHeight: "100vh" }}>
       <h1
         style={{
           fontFamily: "'Syne', sans-serif",
@@ -2862,7 +2865,7 @@ const TrackingPage = () => {
   );
 };
 
-const AboutPage = () => (
+const AboutPage = ({ dm }) => (
   <div style={{ maxWidth: 900, margin: "0 auto", padding: "60px 24px" }}>
     <div style={{ textAlign: "center", marginBottom: 64 }}>
       <div style={{ fontSize: 64, marginBottom: 20 }}>🛍️</div>
@@ -3014,7 +3017,7 @@ const AboutPage = () => (
   </div>
 );
 
-const ContactPage = () => {
+const ContactPage = ({ dm }) => {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -3347,6 +3350,28 @@ export default function App() {
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { overflow-x: hidden; }
+        body.dark-mode #root > div > main {
+          background: #0F172A !important;
+          filter: none;
+        }
+        body.dark-mode .dm-bg { background: #0F172A !important; }
+        body.dark-mode .dm-card { background: #1E293B !important; border-color: #334155 !important; }
+        body.dark-mode .dm-card2 { background: #334155 !important; }
+        body.dark-mode .dm-text { color: #F1F5F9 !important; }
+        body.dark-mode .dm-text2 { color: #94A3B8 !important; }
+        body.dark-mode .dm-border { border-color: #334155 !important; }
+        body.dark-mode .dm-input { background: #1E293B !important; color: #F1F5F9 !important; border-color: #334155 !important; }
+        body.dark-mode #root > div > main,
+        body.dark-mode #root > div > div:not(nav):not(footer) {
+          background: #0F172A !important;
+        }
+        body.dark-mode * {
+          --white: #1E293B;
+          --light: #334155;
+        }
+        body.dark-mode div:not([style*="linear-gradient(135deg,#2563EB"]):not([style*="linear-gradient(135deg, #2563EB"]):not([style*="#0F172A"]):not([style*="rgba(0,0,0"]):not(nav) {
+          background-color: unset;
+        }
         button { font-family: 'DM Sans', sans-serif; }
         input, textarea, select { font-family: 'DM Sans', sans-serif; }
         @keyframes slideUp { from { transform: translate(-50%,40px); opacity: 0; } to { transform: translate(-50%,0); opacity: 1; } }
@@ -3649,7 +3674,9 @@ export default function App() {
             onWishlist={toggleWishlist}
             wishlist={wishlist}
             onView={viewProduct}
+            dm={dm}
             setPage={navigateTo}
+            dm={dm}
           />
         )}
         {page === "shop" && (
@@ -3659,6 +3686,8 @@ export default function App() {
             onWishlist={toggleWishlist}
             wishlist={wishlist}
             onView={viewProduct}
+            dm={dm}
+            dm={dm}
           />
         )}
         {page === "product" && (
@@ -3669,6 +3698,7 @@ export default function App() {
             wishlist={wishlist}
             products={products}
             setPage={navigateTo}
+            dm={dm}
           />
         )}
         {page === "wishlist" && (<WishlistPage
@@ -3686,6 +3716,7 @@ export default function App() {
             setCoupon={setCoupon}
             coupon={coupon}
             discount={discount}
+            dm={dm}
           />
         )}
         {page === "checkout" && (
@@ -3694,11 +3725,12 @@ export default function App() {
             setCart={setCart}
             setPage={navigateTo}
             discount={discount}
+            dm={dm}
           />
         )}
-        {page === "tracking" && <TrackingPage />}
-        {page === "about" && <AboutPage />}
-        {page === "contact" && <ContactPage />}
+        {page === "tracking" && <TrackingPage dm={dm} />}
+        {page === "about" && <AboutPage dm={dm} />}
+        {page === "contact" && <ContactPage dm={dm} />}
         {page === "admin" && <AdminPage />}
       </main>
 
