@@ -749,6 +749,7 @@ const HomePage = ({
                 onWishlist={onWishlist}
                 wishlist={wishlist}
                 onView={onView}
+                dm={dm}
               />
             ))}
           </div>
@@ -858,6 +859,7 @@ const HomePage = ({
                 onWishlist={onWishlist}
                 wishlist={wishlist}
                 onView={onView}
+                dm={dm}
               />
             ))}
           </div>
@@ -1349,6 +1351,7 @@ const ShopPage = ({ products, onAddToCart, onWishlist, wishlist, onView, dm }) =
               onWishlist={onWishlist}
               wishlist={wishlist}
               onView={onView}
+              dm={dm}
             />
           ))}
         </div>
@@ -1796,6 +1799,7 @@ const ProductPage = ({
                 onWishlist={onWishlist}
                 wishlist={wishlist}
                 onView={() => {}}
+                dm={dm}
               />
             ))}
           </div>
