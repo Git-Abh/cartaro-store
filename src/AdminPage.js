@@ -361,8 +361,183 @@ const AdminPage = () => {
           </div>
         </>
       )}
+      {tab === "analytics" && (
+        <AnalyticsTab orders={orders} products={products} />
+      )}
     </div>
   );
 };
 
 export default AdminPage;
+
+function AnalyticsTab({ orders, products }) {
+  const [expenses, setExpenses] = useState({ platform: "", marketing: "", gst: "", other: "" });
+  const [savedExpenses, setSavedExpenses] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("cartaro_expenses") || "{}"); } catch { return {}; }
+  });
+  const [month, setMonth] = useState(() => {
+    const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+  });
+
+  const saveExpenses = () => {
+    const updated = { ...savedExpenses, [month]: expenses };
+    setSavedExpenses(updated);
+    localStorage.setItem("cartaro_expenses", JSON.stringify(updated));
+    alert("Expenses saved!");
+  };
+
+  useEffect(() => {
+    if (savedExpenses[month]) setExpenses(savedExpenses[month]);
+    else setExpenses({ platform: "", marketing: "", gst: "", other: "" });
+  }, [month]);
+
+  const monthOrders = orders.filter(o => {
+    if (!o.createdAt?.toDate) return false;
+    const d = o.createdAt.toDate();
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+    return key === month && o.status !== "cancelled";
+  });
+
+  const revenue = monthOrders.reduce((s, o) => s + (o.total || 0), 0);
+
+  const productCosts = monthOrders.reduce((s, o) =>
+    s + (o.items || []).reduce((ps, item) => {
+      const p = products.find(p => p.name === item.name);
+      return ps + ((Number(p?.costPrice) || 0) * item.qty);
+    }, 0), 0);
+
+  const deliveryCosts = monthOrders.reduce((s, o) =>
+    s + (o.items || []).reduce((ps, item) => {
+      const p = products.find(p => p.name === item.name);
+      return ps + ((Number(p?.deliveryCost) || 0) * item.qty);
+    }, 0), 0);
+
+  const gatewayFees = Math.round(revenue * 0.02);
+  const fixedExpenses = Object.values(expenses).reduce((s, v) => s + (Number(v) || 0), 0);
+  const totalExpenses = productCosts + deliveryCosts + gatewayFees + fixedExpenses;
+  const netProfit = revenue - totalExpenses;
+  const profitMargin = revenue > 0 ? ((netProfit / revenue) * 100).toFixed(1) : 0;
+
+  const productStats = {};
+  monthOrders.forEach(o => {
+    (o.items || []).forEach(item => {
+      if (!productStats[item.name]) productStats[item.name] = { name: item.name, units: 0, revenue: 0 };
+      productStats[item.name].units += item.qty;
+      productStats[item.name].revenue += item.price * item.qty;
+    });
+  });
+  const productList = Object.values(productStats).sort((a, b) => b.revenue - a.revenue);
+  const fmt = n => "₹" + Number(n).toLocaleString("en-IN");
+
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
+        <div style={{ fontSize: 15, fontWeight: 700 }}>📅 Select Month:</div>
+        <input type="month" value={month} onChange={e => setMonth(e.target.value)}
+          style={{ padding: "8px 14px", borderRadius: 10, border: "1.5px solid #E2E8F0", fontSize: 14, outline: "none", fontWeight: 600 }} />
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 16, marginBottom: 32 }}>
+        {[
+          ["💰 Revenue", fmt(revenue), "#10B981", "#F0FDF4"],
+          ["🛒 Product Costs", fmt(productCosts), "#F59E0B", "#FEF3C7"],
+          ["🚚 Delivery Costs", fmt(deliveryCosts), "#8B5CF6", "#F5F3FF"],
+          ["💳 Gateway Fees", fmt(gatewayFees), "#3B82F6", "#EFF6FF"],
+          ["🏢 Fixed Expenses", fmt(fixedExpenses), "#EF4444", "#FEF2F2"],
+          ["📊 Net Profit", fmt(netProfit), netProfit >= 0 ? "#10B981" : "#EF4444", netProfit >= 0 ? "#F0FDF4" : "#FEF2F2"],
+        ].map(([label, value, color, bg]) => (
+          <div key={label} style={{ background: bg, borderRadius: 14, padding: "18px 20px", border: `1.5px solid ${color}30` }}>
+            <div style={{ fontSize: 13, color: "#64748B", marginBottom: 6 }}>{label}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color }}>{value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", marginBottom: 28, border: "1px solid #E2E8F0", display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
+        <div>
+          <div style={{ fontSize: 13, color: "#64748B" }}>Profit Margin</div>
+          <div style={{ fontSize: 32, fontWeight: 900, color: Number(profitMargin) >= 0 ? "#10B981" : "#EF4444" }}>{profitMargin}%</div>
+        </div>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ height: 12, background: "#E2E8F0", borderRadius: 6, overflow: "hidden" }}>
+            <div style={{ height: "100%", width: `${Math.min(Math.abs(Number(profitMargin)), 100)}%`, background: Number(profitMargin) >= 0 ? "linear-gradient(90deg,#10B981,#34D399)" : "#EF4444", borderRadius: 6 }} />
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#94A3B8", marginTop: 4 }}>
+            <span>0%</span><span>50%</span><span>100%</span>
+          </div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: 13, color: "#64748B" }}>Orders this month</div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>{monthOrders.length}</div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 28 }}>
+        <div style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", border: "1px solid #E2E8F0" }}>
+          <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, marginBottom: 16 }}>🏢 Monthly Fixed Expenses</div>
+          {[["platform","Platform & Hosting (₹)"],["marketing","Marketing & Ads (₹)"],["gst","GST & Tax (₹)"],["other","Other Expenses (₹)"]].map(([key, label]) => (
+            <div key={key} style={{ marginBottom: 12 }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: "#475569", display: "block", marginBottom: 4 }}>{label}</label>
+              <input type="number" value={expenses[key]} onChange={e => setExpenses({ ...expenses, [key]: e.target.value })}
+                placeholder="0" style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: "1.5px solid #E2E8F0", fontSize: 14, outline: "none", boxSizing: "border-box" }} />
+            </div>
+          ))}
+          <button onClick={saveExpenses} style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#2563EB,#3B82F6)", color: "#fff", border: "none", borderRadius: 10, fontWeight: 700, cursor: "pointer", marginTop: 4 }}>
+            💾 Save Expenses
+          </button>
+        </div>
+
+        <div style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", border: "1px solid #E2E8F0" }}>
+          <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, marginBottom: 16 }}>📋 Expense Breakdown</div>
+          {[
+            ["Product Costs", productCosts, "#F59E0B"],
+            ["Delivery Costs", deliveryCosts, "#8B5CF6"],
+            ["Gateway Fees (2%)", gatewayFees, "#3B82F6"],
+            ["Platform & Hosting", Number(expenses.platform)||0, "#EF4444"],
+            ["Marketing & Ads", Number(expenses.marketing)||0, "#EC4899"],
+            ["GST & Tax", Number(expenses.gst)||0, "#F97316"],
+            ["Other", Number(expenses.other)||0, "#64748B"],
+          ].map(([label, amount, color]) => (
+            <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 10, height: 10, borderRadius: "50%", background: color }} />
+                <span style={{ fontSize: 13, color: "#475569" }}>{label}</span>
+              </div>
+              <span style={{ fontSize: 13, fontWeight: 700, color }}>{fmt(amount)}</span>
+            </div>
+          ))}
+          <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 10, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
+            <span style={{ fontSize: 14, fontWeight: 700 }}>Total Expenses</span>
+            <span style={{ fontSize: 14, fontWeight: 800, color: "#EF4444" }}>{fmt(totalExpenses)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", border: "1px solid #E2E8F0" }}>
+        <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, marginBottom: 16 }}>🏆 Product Performance</div>
+        {productList.length === 0 ? (
+          <div style={{ textAlign: "center", padding: 40, color: "#94A3B8" }}>No orders this month yet</div>
+        ) : productList.map((p, i) => (
+          <div key={p.name} style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 0", borderBottom: "1px solid #F1F5F9" }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", background: i === 0 ? "#FEF3C7" : "#F1F5F9", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13 }}>
+              {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i+1}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
+              <div style={{ fontSize: 12, color: "#64748B" }}>{p.units} units sold</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontWeight: 700, fontSize: 15, color: "#10B981" }}>{fmt(p.revenue)}</div>
+              <div style={{ fontSize: 11, color: "#94A3B8" }}>revenue</div>
+            </div>
+            <div style={{ width: 80 }}>
+              <div style={{ height: 6, background: "#E2E8F0", borderRadius: 3, overflow: "hidden" }}>
+                <div style={{ height: "100%", width: `${(p.revenue / (productList[0]?.revenue || 1)) * 100}%`, background: "linear-gradient(90deg,#2563EB,#60A5FA)", borderRadius: 3 }} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
