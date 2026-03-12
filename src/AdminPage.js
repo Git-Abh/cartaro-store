@@ -14,7 +14,7 @@ const statusBg = (s) => ({
   "out for delivery": "#FFF7ED", delivered: "#F0FDF4", cancelled: "#FEF2F2"
 }[s] || "#F8FAFC");
 
-const EMPTY_PRODUCT = { name: "", category: "Gadgets", price: "", mrp: "", badge: "New", img: "📦", desc: "", stock: "", tags: "" };
+const EMPTY_PRODUCT = { name: "", category: "Gadgets", price: "", mrp: "", badge: "New", img: "📦", desc: "", stock: "", tags: "", costPrice: "", deliveryCost: "" };
 const CATEGORIES = ["Gadgets", "Home Tools", "Fitness", "Car Accessories", "Smart Devices"];
 const BADGES = ["New", "Trending", "Hot", "Best Seller", "Top Rated"];
 
@@ -141,7 +141,7 @@ const AdminPage = () => {
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: 8, marginBottom: 32, borderBottom: "2px solid #E2E8F0" }}>
-        {[["orders", "📦 Orders"], ["products", "🛍️ Products"]].map(([key, label]) => (
+        {[["orders", "📦 Orders"], ["products", "🛍️ Products"], ["analytics", "�� Analytics"]].map(([key, label]) => (
           <button key={key} onClick={() => setTab(key)} style={{ padding: "10px 24px", border: "none", borderBottom: tab === key ? "3px solid #2563EB" : "3px solid transparent", background: "none", fontWeight: tab === key ? 700 : 500, color: tab === key ? "#2563EB" : "#64748B", cursor: "pointer", fontSize: 15, marginBottom: -2 }}>
             {label}
           </button>
@@ -281,6 +281,8 @@ const AdminPage = () => {
                     ["stock", "Stock", "number", "span 1"],
                     ["desc", "Description", "textarea", "span 2"],
                     ["tags", "Tags (comma separated)", "text", "span 2"],
+                    ["costPrice", "Your Cost Price (₹)", "number", "span 1"],
+                    ["deliveryCost", "Delivery Cost (₹)", "number", "span 1"],
                   ].map(([field, label, type, span]) => (
                     <div key={field} style={{ gridColumn: span }}>
                       <label style={{ fontSize: 12, fontWeight: 600, color: "#475569", display: "block", marginBottom: 6 }}>{label}</label>
