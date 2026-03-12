@@ -323,7 +323,7 @@ const ProductCard = ({
         transition: "all 0.3s ease",
         transform: hovered ? "translateY(-6px)" : "none",
         cursor: "pointer",
-        border: "1px solid #F1F5F9",
+        border: dm ? "1px solid #334155" : "1px solid #F1F5F9",
       }}
     >
       {/* Image area */}
@@ -335,7 +335,7 @@ const ProductCard = ({
           textAlign: "center",
         }}
       >
-        <div style={{ position: "fixed", top: 12, left: 12 }}>
+        <div style={{ position: "absolute", top: 12, left: 12 }}>
           <Badge label={product.badge} />
         </div>
         <button
