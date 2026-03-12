@@ -2303,7 +2303,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
           <button
-            onClick={() => navigateTo("tracking")}
+            onClick={() => setPage("tracking")}
             style={{
               padding: "13px 28px",
               borderRadius: 12,
@@ -2318,7 +2318,7 @@ const CheckoutPage = ({ cart, setCart, setPage, discount }) => {
             Track Order
           </button>
           <button
-            onClick={() => navigateTo("home")}
+            onClick={() => setPage("home")}
             style={{
               padding: "13px 28px",
               borderRadius: 12,
