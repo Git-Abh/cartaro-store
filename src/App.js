@@ -1,7 +1,9 @@
 // v2.1 dark mode fix
 import "./styles.css";
 import AdminPage from "./AdminPage";
-import { db } from "./firebase";
+import { db, auth } from "./firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import AuthPage from "./AuthPage";
 import emailjs from "@emailjs/browser";
 import { collection, addDoc, getDocs, query, where, doc, updateDoc, orderBy } from "firebase/firestore";
 import { Analytics } from "@vercel/analytics/react";
@@ -3216,6 +3218,12 @@ const ContactPage = ({ dm }) => {
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("cartaro_dark") === "true");
+  const [user, setUser] = useState(null);
+  const [showAuth, setShowAuth] = useState(false);
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    return () => unsub();
+  }, []);
   useEffect(() => {
     if (darkMode) document.body.classList.add("dark-mode");
     else document.body.classList.remove("dark-mode");
@@ -3452,6 +3460,26 @@ export default function App() {
               marginLeft: 24,
             }}
           >
+            {/* Auth button */}
+            {user ? (
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginRight: 8 }}>
+                <img src={user.photoURL || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.displayName || user.email)} alt="avatar"
+                  style={{ width: 32, height: 32, borderRadius: "50%", border: "2px solid #3B82F6", cursor: "pointer" }}
+                  onClick={() => navigateTo("orders")}
+                />
+                <button onClick={() => signOut(auth)} style={{
+                  background: "none", border: "1px solid #EF4444", borderRadius: 8,
+                  color: dm ? "#F1F5F9" : "#EF4444", fontSize: 12, fontWeight: 600,
+                  padding: "4px 10px", cursor: "pointer"
+                }}>Sign Out</button>
+              </div>
+            ) : (
+              <button onClick={() => setShowAuth(true)} style={{
+                background: "linear-gradient(135deg,#2563EB,#3B82F6)", border: "none",
+                borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 700,
+                padding: "6px 14px", cursor: "pointer", marginRight: 8,
+              }}>Sign In</button>
+            )}
             {/* Dark mode toggle */}
             <label className="switch" style={{ marginRight: 8 }}>
               <input type="checkbox" checked={darkMode} onChange={e => setDarkMode(e.target.checked)} />
@@ -3722,6 +3750,7 @@ export default function App() {
         {page === "about" && <AboutPage dm={dm} />}
         {page === "contact" && <ContactPage dm={dm} />}
         {page === "admin" && <AdminPage />}
+      {showAuth && <AuthPage onClose={() => setShowAuth(false)} dm={dm} />}
       </main>
 
       {/* FOOTER */}
