@@ -3693,6 +3693,7 @@ export default function App() {
             onAddToCart={addToCart}
             onWishlist={toggleWishlist}
             setPage={navigateTo}
+            dm={dm}
           />)}
         {page === "cart" && (
           <CartPage
