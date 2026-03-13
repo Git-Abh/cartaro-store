@@ -22,9 +22,12 @@ const AuthPage = ({ onClose, dm }) => {
     setLoading(true);
     setError("");
     try {
-      await signInWithRedirect(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
+      onClose();
     } catch (e) {
-      setError("Google sign-in failed. Try again.");
+      if (e.code !== "auth/popup-closed-by-user") {
+        setError("Google sign-in failed. Try again.");
+      }
       setLoading(false);
     }
   };
