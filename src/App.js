@@ -3359,6 +3359,7 @@ export default function App() {
         body { overflow-x: hidden; }
 
         button { font-family: 'DM Sans', sans-serif; }
+        nav button[style*='linear-gradient(135deg,#2563EB'] { color: #fff !important; }
         nav button[style*='linear-gradient'] { color: #fff !important; }
         input, textarea, select { font-family: 'DM Sans', sans-serif; }
         @keyframes slideUp { from { transform: translate(-50%,40px); opacity: 0; } to { transform: translate(-50%,0); opacity: 1; } }
