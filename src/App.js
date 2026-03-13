@@ -3602,8 +3602,8 @@ export default function App() {
               onClick={() => navigateTo("cart")}
               style={{
                 position: "relative",
-                background: "linear-gradient(135deg,#2563EB,#3B82F6)",
-                border: "none",
+                background: dm ? "linear-gradient(135deg,#3B82F6,#60A5FA)" : "linear-gradient(135deg,#2563EB,#3B82F6)",
+                border: dm ? "1.5px solid #60A5FA" : "none",
                 borderRadius: 10,
                 padding: "8px 16px",
                 color: "#fff",
@@ -3613,6 +3613,7 @@ export default function App() {
                 display: "flex",
                 alignItems: "center",
                 gap: 6,
+                boxShadow: dm ? "0 0 12px rgba(96,165,250,0.4)" : "none",
               }}
             >
               🛒 Cart
