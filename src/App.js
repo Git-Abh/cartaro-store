@@ -452,7 +452,7 @@ const ProductCard = ({
   );
 };
 
-const Logo = ({ dark }) => (
+const Logo = ({ dark, dm }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
     <div
       style={{
@@ -482,7 +482,7 @@ const Logo = ({ dark }) => (
         fontFamily: "'Syne', sans-serif",
         fontWeight: 800,
         fontSize: 22,
-        color: dark ? "#fff" : "#0F172A",
+        color: (dark || dm) ? "#fff" : "#0F172A",
         letterSpacing: -0.5,
       }}
     >
@@ -3415,7 +3415,7 @@ export default function App() {
             style={{ cursor: "pointer", flex: 1 }}
             onClick={() => navigateTo("home")}
           >
-            <Logo />
+            <Logo dm={dm} />
           </div>
 
           {/* Desktop Nav */}
