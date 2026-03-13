@@ -1,3 +1,4 @@
+// v2.1 dark mode fix
 import "./styles.css";
 import AdminPage from "./AdminPage";
 import { db } from "./firebase";
