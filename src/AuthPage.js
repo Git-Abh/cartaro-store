@@ -23,7 +23,7 @@ const AuthPage = ({ onClose, dm }) => {
       await signInWithPopup(auth, googleProvider);
       onClose();
     } catch (e) {
-      setError(e.message);
+      if (e.code !== "auth/popup-closed-by-user") setError("Google sign-in failed. Try again.");
     }
     setLoading(false);
   };
