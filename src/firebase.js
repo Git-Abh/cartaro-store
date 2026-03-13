@@ -4,7 +4,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCCTSkm9DZca4yr7-8rshEiKsHCF6f8nOo",
-  authDomain: "cartaro-store.vercel.app",
+  authDomain: "cartaro-store.firebaseapp.com",
   projectId: "cartaro-store",
   storageBucket: "cartaro-store.firebasestorage.app",
   messagingSenderId: "40400617307",
