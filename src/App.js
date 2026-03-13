@@ -2,7 +2,7 @@
 import "./styles.css";
 import AdminPage from "./AdminPage";
 import { db, auth } from "./firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, getRedirectResult } from "firebase/auth";
 import AuthPage from "./AuthPage";
 import emailjs from "@emailjs/browser";
 import { collection, addDoc, getDocs, query, where, doc, updateDoc, orderBy } from "firebase/firestore";
@@ -3221,7 +3221,11 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [showAuth, setShowAuth] = useState(false);
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      if (u) setShowAuth(false);
+    });
+    getRedirectResult(auth).catch(() => {});
     return () => unsub();
   }, []);
   useEffect(() => {

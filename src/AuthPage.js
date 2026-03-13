@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { auth, googleProvider } from "./firebase";
 import {
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -20,12 +22,11 @@ const AuthPage = ({ onClose, dm }) => {
     setLoading(true);
     setError("");
     try {
-      await signInWithPopup(auth, googleProvider);
-      onClose();
+      await signInWithRedirect(auth, googleProvider);
     } catch (e) {
-      if (e.code !== "auth/popup-closed-by-user") setError("Google sign-in failed. Try again.");
+      setError("Google sign-in failed. Try again.");
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleLogin = async (e) => {
