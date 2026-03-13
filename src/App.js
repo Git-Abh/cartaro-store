@@ -3357,28 +3357,7 @@ export default function App() {
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { overflow-x: hidden; }
-        body.dark-mode #root > div > main {
-          background: #0F172A !important;
-          filter: none;
-        }
-        body.dark-mode .dm-bg { background: #0F172A !important; }
-        body.dark-mode .dm-card { background: #1E293B !important; border-color: #334155 !important; }
-        body.dark-mode .dm-card2 { background: #334155 !important; }
-        body.dark-mode .dm-text { color: #F1F5F9 !important; }
-        body.dark-mode .dm-text2 { color: #94A3B8 !important; }
-        body.dark-mode .dm-border { border-color: #334155 !important; }
-        body.dark-mode .dm-input { background: #1E293B !important; color: #F1F5F9 !important; border-color: #334155 !important; }
-        body.dark-mode #root > div > main,
-        body.dark-mode #root > div > div:not(nav):not(footer) {
-          background: #0F172A !important;
-        }
-        body.dark-mode * {
-          --white: #1E293B;
-          --light: #334155;
-        }
-        body.dark-mode div:not([style*="linear-gradient(135deg,#2563EB"]):not([style*="linear-gradient(135deg, #2563EB"]):not([style*="#0F172A"]):not([style*="rgba(0,0,0"]):not(nav) {
-          background-color: unset;
-        }
+
         button { font-family: 'DM Sans', sans-serif; }
         input, textarea, select { font-family: 'DM Sans', sans-serif; }
         @keyframes slideUp { from { transform: translate(-50%,40px); opacity: 0; } to { transform: translate(-50%,0); opacity: 1; } }
