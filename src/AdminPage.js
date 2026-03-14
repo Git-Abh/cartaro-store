@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase";
+import { db, storage } from "./firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, getDocs, orderBy, query, doc, updateDoc, addDoc, deleteDoc } from "firebase/firestore";
 
 const ADMIN_PASSWORD = "cartaro2024";
@@ -13,6 +14,16 @@ const statusBg = (s) => ({
   pending: "#FEF3C7", confirmed: "#EFF6FF", shipped: "#F5F3FF",
   "out for delivery": "#FFF7ED", delivered: "#F0FDF4", cancelled: "#FEF2F2"
 }[s] || "#F8FAFC");
+
+const uploadFile = (file, path, onProgress) => new Promise((resolve, reject) => {
+  const storageRef = ref(storage, path);
+  const task = uploadBytesResumable(storageRef, file);
+  task.on("state_changed",
+    snap => onProgress(Math.round(snap.bytesTransferred / snap.totalBytes * 100)),
+    reject,
+    () => getDownloadURL(task.snapshot.ref).then(resolve)
+  );
+});
 
 const EMPTY_PRODUCT = { name: "", category: "Gadgets", price: "", mrp: "", badge: "New", img: "📦", desc: "", stock: "", tags: "", costPrice: "", deliveryCost: "" };
 const CATEGORIES = ["Gadgets", "Home Tools", "Fitness", "Car Accessories", "Smart Devices"];
@@ -29,6 +40,10 @@ const AdminPage = () => {
   const [filterStatus, setFilterStatus] = useState("all");
   const [expandedId, setExpandedId] = useState(null);
   const [productForm, setProductForm] = useState(EMPTY_PRODUCT);
+  const [imgUploading, setImgUploading] = useState(false);
+  const [vidUploading, setVidUploading] = useState(false);
+  const [imgProgress, setImgProgress] = useState(0);
+  const [vidProgress, setVidProgress] = useState(0);
   const [editingProduct, setEditingProduct] = useState(null);
   const [showProductForm, setShowProductForm] = useState(false);
   const [productSearch, setProductSearch] = useState("");
@@ -271,9 +286,82 @@ const AdminPage = () => {
                   {editingProduct ? "✏️ Edit Product" : "➕ Add New Product"}
                 </h2>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  {/* Image Upload */}
+                  <div style={{ gridColumn: "span 1" }}>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: "#475569", display: "block", marginBottom: 6 }}>Product Image</label>
+                    <div style={{ border: "2px dashed #CBD5E1", borderRadius: 10, padding: 12, textAlign: "center", cursor: "pointer", background: "#F8FAFC" }}
+                      onClick={() => document.getElementById("imgInput").click()}>
+                      {productForm.img && productForm.img.startsWith("http") ? (
+                        <img src={productForm.img} alt="preview" style={{ width: "100%", height: 100, objectFit: "cover", borderRadius: 8 }} />
+                      ) : (
+                        <div style={{ fontSize: 32, marginBottom: 4 }}>{productForm.img || "📦"}</div>
+                      )}
+                      <div style={{ fontSize: 12, color: "#94A3B8", marginTop: 4 }}>
+                        {imgUploading ? `Uploading... ${imgProgress}%` : "Click to upload image"}
+                      </div>
+                      {imgUploading && (
+                        <div style={{ height: 4, background: "#E2E8F0", borderRadius: 2, marginTop: 8 }}>
+                          <div style={{ height: "100%", width: `${imgProgress}%`, background: "#2563EB", borderRadius: 2, transition: "width 0.3s" }} />
+                        </div>
+                      )}
+                    </div>
+                    <input id="imgInput" type="file" accept="image/*" style={{ display: "none" }}
+                      onChange={async e => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        if (file.size > 5 * 1024 * 1024) return alert("Image must be under 5MB");
+                        setImgUploading(true);
+                        try {
+                          const url = await uploadFile(file, `products/images/${Date.now()}_${file.name}`, setImgProgress);
+                          setProductForm(f => ({ ...f, img: url }));
+                        } catch(err) { alert("Upload failed: " + err.message); }
+                        setImgUploading(false); setImgProgress(0);
+                      }} />
+                  </div>
+
+                  {/* Video Upload */}
+                  <div style={{ gridColumn: "span 1" }}>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: "#475569", display: "block", marginBottom: 6 }}>Product Video (max 30s)</label>
+                    <div style={{ border: "2px dashed #CBD5E1", borderRadius: 10, padding: 12, textAlign: "center", cursor: "pointer", background: "#F8FAFC" }}
+                      onClick={() => document.getElementById("vidInput").click()}>
+                      {productForm.video ? (
+                        <video src={productForm.video} style={{ width: "100%", height: 100, objectFit: "cover", borderRadius: 8 }} muted />
+                      ) : (
+                        <div style={{ fontSize: 32, marginBottom: 4 }}>🎬</div>
+                      )}
+                      <div style={{ fontSize: 12, color: "#94A3B8", marginTop: 4 }}>
+                        {vidUploading ? `Uploading... ${vidProgress}%` : "Click to upload video"}
+                      </div>
+                      {vidUploading && (
+                        <div style={{ height: 4, background: "#E2E8F0", borderRadius: 2, marginTop: 8 }}>
+                          <div style={{ height: "100%", width: `${vidProgress}%`, background: "#10B981", borderRadius: 2, transition: "width 0.3s" }} />
+                        </div>
+                      )}
+                    </div>
+                    <input id="vidInput" type="file" accept="video/*" style={{ display: "none" }}
+                      onChange={async e => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        if (file.size > 50 * 1024 * 1024) return alert("Video must be under 50MB");
+                        // Check duration
+                        const vid = document.createElement("video");
+                        vid.preload = "metadata";
+                        vid.src = URL.createObjectURL(file);
+                        vid.onloadedmetadata = async () => {
+                          URL.revokeObjectURL(vid.src);
+                          if (vid.duration > 30) return alert("Video must be 30 seconds or less!");
+                          setVidUploading(true);
+                          try {
+                            const url = await uploadFile(file, `products/videos/${Date.now()}_${file.name}`, setVidProgress);
+                            setProductForm(f => ({ ...f, video: url }));
+                          } catch(err) { alert("Upload failed: " + err.message); }
+                          setVidUploading(false); setVidProgress(0);
+                        };
+                      }} />
+                  </div>
+
                   {[
                     ["name", "Product Name", "text", "span 2"],
-                    ["img", "Emoji Icon", "text", "span 1"],
                     ["badge", "Badge", "select", "span 1"],
                     ["category", "Category", "select", "span 1"],
                     ["price", "Price (₹)", "number", "span 1"],
