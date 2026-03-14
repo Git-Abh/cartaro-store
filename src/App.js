@@ -333,20 +333,22 @@ const ProductCard = ({
       <div
         style={{
           background: dm ? "#0F172A" : "linear-gradient(135deg,#EFF6FF,#F0F9FF)",
-          padding: "28px 20px 20px",
+          padding: product.img && product.img.startsWith("http") ? "0" : "28px 20px 20px",
           position: "relative",
           textAlign: "center",
+          overflow: "hidden",
         }}
       >
-        <div style={{ position: "absolute", top: 12, left: 12 }}>
+        <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2 }}>
           <Badge label={product.badge} />
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); onWishlist(product.id); }}
           style={{
-            position: "fixed",
+            position: "absolute",
             top: 12,
             right: 12,
+            zIndex: 2,
             background: "none",
             border: "none",
             fontSize: 18,
@@ -356,15 +358,18 @@ const ProductCard = ({
         >
           {wished ? "❤️" : "🤍"}
         </button>
-        <div
-          style={{
-            fontSize: 72,
-            lineHeight: 1,
-            filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.1))",
-          }}
-        >
-          {product.img}
-        </div>
+        {product.img && product.img.startsWith("http") ? (
+          <img
+            src={product.img}
+            alt={product.name}
+            style={{ width: "100%", height: 200, objectFit: "cover", display: "block" }}
+            onError={e => { e.target.style.display = "none"; }}
+          />
+        ) : (
+          <div style={{ fontSize: 72, lineHeight: 1, filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.1))", padding: "20px 0" }}>
+            {product.img || "📦"}
+          </div>
+        )}
       </div>
       {/* Info */}
       <div style={{ padding: "16px 16px 20px" }}>
@@ -1438,14 +1443,26 @@ const ProductPage = ({
             textAlign: "center",
           }}
         >
-          <div
-            style={{
-              fontSize: 120,
-              filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.12))",
-            }}
-          >
-            {product.img}
-          </div>
+          {product.img && product.img.startsWith("http") ? (
+            <img
+              src={product.img}
+              alt={product.name}
+              style={{ width: "100%", maxHeight: 320, objectFit: "cover", borderRadius: 16, display: "block" }}
+              onError={e => { e.target.style.display = "none"; }}
+            />
+          ) : (
+            <div style={{ fontSize: 120, filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.12))" }}>
+              {product.img || "📦"}
+            </div>
+          )}
+          {product.video && (
+            <video
+              src={product.video}
+              controls
+              style={{ width: "100%", borderRadius: 12, marginTop: 12, maxHeight: 200 }}
+              preload="metadata"
+            />
+          )}
           <Badge label={product.badge} />
         </div>
         {/* Info */}
